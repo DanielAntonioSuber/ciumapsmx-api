@@ -1,4 +1,4 @@
-import { Op } from 'sequelize/types'
+import { Op } from 'sequelize'
 import { User } from '../database/models/User'
 import ImageService from './ImageService'
 import RoleService from './RoleService'
@@ -24,6 +24,10 @@ class UserService {
       password,
       avatarImage: (await imageService.getDefaultAvatar())!.id
     })
+  }
+
+  async findById (id: number) {
+    return await User.findByPk(id)
   }
 
   async findByEmail (email: string) {
