@@ -1,3 +1,4 @@
+import { Op } from 'sequelize/types'
 import { User } from '../database/models/User'
 import ImageService from './ImageService'
 import RoleService from './RoleService'
@@ -31,6 +32,10 @@ class UserService {
 
   async findByUsername (username: string) {
     return await User.findOne({ where: { username } })
+  }
+
+  async findByUsernameOrEmail (username: string, email: string) {
+    return await User.findOne({ where: { [Op.or]: [{ username }, { email }] } })
   }
 }
 
