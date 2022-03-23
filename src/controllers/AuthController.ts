@@ -20,12 +20,12 @@ function createToken (user: User) {
 class AuthController {
   private service = new UserService()
 
-  async signUp (req: Request, res: Response) {
+  signUp = async (req: Request, res: Response) => {
     await this.service.create(req.body)
     res.status(201).json({ message: 'User was created' })
   }
 
-  async signIn (req: Request, res: Response) {
+  signIn = async (req: Request, res: Response) => {
     const { username, email, password } = req.body
 
     const user = await this.service.findByUsernameOrEmail(username, email)
