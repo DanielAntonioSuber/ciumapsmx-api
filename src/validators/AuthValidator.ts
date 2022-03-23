@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { check } from 'express-validator'
 import UserService from '../services/UserService'
+import validateResult from '../utils/validateResult'
 
 class AuthValidator {
   private async checkDuplicateUser (
@@ -29,13 +30,15 @@ class AuthValidator {
     check('email').exists().isEmail().not().isEmpty(),
     check('role').exists(),
     check('password').exists(),
+    validateResult,
     this.checkDuplicateUser
   ]
 
   signIn = [
-    check('email').optional().isEmail(),
-    check('username').optional(),
-    check('password').exists().notEmpty()
+    check('email').exists().isEmail(),
+    check('username').exists(),
+    check('password').exists().notEmpty(),
+    validateResult
   ]
 }
 
