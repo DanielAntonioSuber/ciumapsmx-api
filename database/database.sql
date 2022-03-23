@@ -44,12 +44,20 @@ CREATE TABLE places(
     FOREIGN KEY(kind_of_place) REFERENCES types_of_places(kind_of_place_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE images_of_places(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    place INT NOT NULL,
+    place_image INT NOT NULL,
+    FOREIGN KEY(place) REFERENCES places(place_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(place_image) REFERENCES images(image_id) ON DELETE CASCADE ON UPDATE CASCADE
+)
+
 CREATE TABLE place_rewies(
-    star_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     user INT NOT NULL,
     place INT NOT NULL,
-    star_score INT NOT NULL,
-    security_score INT NOT NULL,
-    FOREIGN KEY(place) REFERENCES places(place_id),
-    FOREIGN KEY(user) REFERENCES users(user_id)
+    star_score INT NOT NULL DEFAULT 0,
+    security_score INT NOT NULL DEFAULT 0,
+    FOREIGN KEY(place) REFERENCES places(place_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(user) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

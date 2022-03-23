@@ -53,7 +53,7 @@ const UserAttributes: ModelAttributes<User, InferAttributes<User>> = {
     allowNull: false
   },
   role: { type: DataTypes.INTEGER, allowNull: false },
-  username: { type: DataTypes.STRING(40), allowNull: false },
+  username: { type: DataTypes.STRING(40), allowNull: false, unique: true },
   password: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -64,7 +64,7 @@ const UserAttributes: ModelAttributes<User, InferAttributes<User>> = {
       )
     }
   },
-  email: { type: DataTypes.STRING(40), allowNull: false },
+  email: { type: DataTypes.STRING(40), allowNull: false, unique: true },
   avatarImage: {
     type: DataTypes.NUMBER,
     field: 'avatar_image',
