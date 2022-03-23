@@ -1,12 +1,27 @@
-import bcrypt from 'bcrypt'
 import { User } from '../database/models/User'
+import ImageService from './ImageService'
+import RoleService from './RoleService'
 
 class UserService {
-  async create (user: User) {
-    const hash = await bcrypt.hash(user.password, await bcrypt.genSalt(10))
+  async create ({
+    username,
+    email,
+    password,
+    role
+  }: {
+    username: string
+    email: string
+    password: string
+    role: string
+  }) {
+    const roleService = new RoleService()
+    const imageService = new ImageService()
     return await User.create({
-      ...user,
-      password: hash
+      username,
+      email,
+      role: roleService.getRoles().find((ROLE) => ROLE.name === role)!.id,
+      password,
+      avatarImage: (await imageService.getDefaultAvatar())!.id
     })
   }
 

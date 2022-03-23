@@ -4,11 +4,11 @@ class ImageService {
   avatarPath = 'api public/images/avatar.webp'
 
   async createDefaultAvatar () {
-    const [avatar, created] = await Image.findOrCreate({
+    const result = await Image.findOrCreate({
       where: { path: this.avatarPath, name: 'avatarImage' }
     })
 
-    if (created) console.log('Default avatar was created: ', avatar)
+    if (result[1]) console.log('Default avatar was created: ')
   }
 
   async getDefaultAvatar () {

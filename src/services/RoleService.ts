@@ -1,7 +1,7 @@
 import { Role } from '../database/models/Role'
 
 class RoleService {
-  roles = [
+  private roles = [
     { id: 10, name: 'admin' },
     { id: 11, name: 'moderator' },
     { id: 12, name: 'seller' },
@@ -19,6 +19,10 @@ class RoleService {
         this.roles.map((role) => role.name)
       )
     }
+  }
+
+  getRoles () {
+    return this.roles
   }
 }
 
