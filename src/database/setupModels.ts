@@ -8,8 +8,16 @@ function setupModels (sequelize: Sequelize) {
   Role.init(RoleAttributes, Role.config(sequelize))
   Image.init(ImageAttributes, Image.config(sequelize))
 
-  Role.hasMany(User, { foreignKey: 'role' })
-  Image.hasMany(User, { foreignKey: 'avatar_image' })
+  Role.hasMany(User, {
+    foreignKey: 'role',
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  })
+  Image.hasMany(User, {
+    foreignKey: 'avatar_image',
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  })
 
   User.belongsTo(Role, { foreignKey: 'role' })
   User.belongsTo(Image, { foreignKey: 'avatar_image' })

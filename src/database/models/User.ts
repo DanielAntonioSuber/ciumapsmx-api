@@ -1,4 +1,7 @@
 import {
+  BelongsToCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
   CreationOptional,
   DataTypes,
   InferAttributes,
@@ -8,6 +11,9 @@ import {
   ModelAttributes,
   Sequelize
 } from 'sequelize'
+import bcrypt from 'bcrypt'
+import { Role } from './Role'
+import { Image } from './Image'
 
 const USER_TABLE = 'users'
 
@@ -18,6 +24,16 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare password: string
   declare email: string
   declare avatarImage: number
+  declare createdAt: CreationOptional<Date>
+  declare updatedAt: CreationOptional<Date>
+
+  declare getRole: BelongsToGetAssociationMixin<Role>
+  declare setRole: BelongsToSetAssociationMixin<Role, number>
+  declare createRole: BelongsToCreateAssociationMixin<Role>
+
+  declare getImage: BelongsToGetAssociationMixin<Image>
+  declare setImage: BelongsToSetAssociationMixin<Image, number>
+  declare createImage: BelongsToCreateAssociationMixin<Image>
 
   static config (sequelize: Sequelize): InitOptions<User> {
     return {
@@ -38,13 +54,24 @@ const UserAttributes: ModelAttributes<User, InferAttributes<User>> = {
   },
   role: { type: DataTypes.INTEGER, allowNull: false },
   username: { type: DataTypes.STRING(40), allowNull: false },
-  password: { type: DataTypes.STRING(100), allowNull: false },
+  password: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    set (value: string) {
+      this.setDataValue(
+        'password',
+        bcrypt.hashSync(value, bcrypt.genSaltSync(10))
+      )
+    }
+  },
   email: { type: DataTypes.STRING(40), allowNull: false },
   avatarImage: {
     type: DataTypes.NUMBER,
     field: 'avatar_image',
     allowNull: false
-  }
+  },
+  createdAt: DataTypes.DATE,
+  updatedAt: DataTypes.DATE
 }
 
 export { User, UserAttributes }
