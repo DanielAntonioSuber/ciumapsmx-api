@@ -7,3 +7,4 @@ export const APP_ROLES = [
   { id: 12, name: 'seller' },
   { id: 13, name: 'tourist' }
 ]
+export const AVATAR_PATH = 'api public/images/avatar.webp'
