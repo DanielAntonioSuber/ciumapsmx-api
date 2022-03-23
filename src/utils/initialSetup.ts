@@ -1,24 +1,22 @@
-import { APP_ROLES } from '../config/app'
-import { Role } from '../database/models/Role'
+import ImageService from '../services/ImageService'
+import RoleService from '../services/RoleService'
 
 async function createRoles () {
-  const result = await Role.findAndCountAll()
-  if (result.count === 0) {
-    for (const appRole of APP_ROLES) {
-      await Role.create(appRole)
-    }
-    console.log(
-      'Roles were created:',
-      APP_ROLES.map((role) => role.name)
-    )
-  }
+  const roleService = new RoleService()
+  await roleService.createRoles()
 }
 
 function createAdmins () {}
 
+async function createDefaultAvatar () {
+  const imageService = new ImageService()
+  await imageService.createDefaultAvatar()
+}
+
 async function initialSetup () {
   await createRoles()
   createAdmins()
+  createDefaultAvatar()
 }
 
 export default initialSetup
