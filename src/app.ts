@@ -1,7 +1,6 @@
 import express from 'express'
 import { APP_PORT } from './config/app'
-import routerApi from './routes/index'
-
+import routerApi from './routes'
 const app = express()
 
 // Settings
