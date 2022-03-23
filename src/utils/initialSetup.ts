@@ -3,13 +3,14 @@ import { Role } from '../database/models/Role'
 
 async function createRoles () {
   const result = await Role.findAndCountAll()
-  if (result.count !== 0) {
-    const roles: Role[] = []
-    APP_ROLES.forEach(async (appRole) => {
-      const role = await Role.create(appRole)
-      roles.push(role)
-    })
-    console.log('Roles were created:', roles)
+  if (result.count === 0) {
+    for (const appRole of APP_ROLES) {
+      await Role.create(appRole)
+    }
+    console.log(
+      'Roles were created:',
+      APP_ROLES.map((role) => role.name)
+    )
   }
 }
 
