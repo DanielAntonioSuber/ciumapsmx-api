@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { check } from 'express-validator'
-import { User } from '../database/models/User'
+import UserService from '../services/UserService'
 
 class AuthValidator {
   private async checkDuplicateUser (
@@ -9,13 +9,14 @@ class AuthValidator {
     next: NextFunction
   ) {
     const { username, email } = req.body
+    const userService = new UserService()
 
-    const userByUsername = await User.findOne({ where: { username: username } })
+    const userByUsername = await userService.findByUsername(username)
     if (userByUsername) {
       return res.status(400).json({ message: 'The user already exists' })
     }
 
-    const userByEmail = await User.findOne({ where: { email: email } })
+    const userByEmail = await userService.findByEmail(email)
     if (userByEmail) {
       return res.status(400).json({ message: 'The email already exists' })
     }

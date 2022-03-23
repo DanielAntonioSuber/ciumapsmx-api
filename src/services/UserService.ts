@@ -9,6 +9,14 @@ class UserService {
       password: hash
     })
   }
+
+  async findByEmail (email: string) {
+    return await User.findOne({ where: { email } })
+  }
+
+  async findByUsername (username: string) {
+    return await User.findOne({ where: { username } })
+  }
 }
 
 export default UserService
