@@ -23,7 +23,7 @@ class Image extends Model<
     return {
       sequelize,
       tableName: IMAGE_TABLE,
-      modelName: 'User',
+      modelName: 'Image',
       timestamps: false
     }
   }
