@@ -1,8 +1,9 @@
 import { Sequelize } from 'sequelize'
 import { Image, ImageAttributes } from './models/Image'
-import { KindOfPlace } from './models/KindOfPlace'
-import { Place } from './models/Place'
-import { PlaceReview } from './models/PlaceRewie'
+import { ImageOfPlace, ImageOfPlaceAttributes } from './models/ImageOfPlace'
+import { KindOfPlace, KindOfPlaceAttributes } from './models/KindOfPlace'
+import { Place, PlaceAttributes } from './models/Place'
+import { PlaceReview, PlaceReviewAttributes } from './models/PlaceReview'
 import { Role, RoleAttributes } from './models/Role'
 import { User, UserAttributes } from './models/User'
 
@@ -10,6 +11,10 @@ function setupModels (sequelize: Sequelize) {
   User.init(UserAttributes, User.config(sequelize))
   Role.init(RoleAttributes, Role.config(sequelize))
   Image.init(ImageAttributes, Image.config(sequelize))
+  PlaceReview.init(PlaceReviewAttributes, PlaceReview.config(sequelize))
+  ImageOfPlace.init(ImageOfPlaceAttributes, ImageOfPlace.config(sequelize))
+  KindOfPlace.init(KindOfPlaceAttributes, KindOfPlace.config(sequelize))
+  Place.init(PlaceAttributes, Place.config(sequelize))
 
   Role.hasMany(User, {
     foreignKey: 'role',
@@ -45,6 +50,24 @@ function setupModels (sequelize: Sequelize) {
     onDelete: 'CASCADE'
   })
   Place.belongsTo(KindOfPlace, { foreignKey: 'kind_of_place' })
+
+  Image.hasMany(ImageOfPlace, {
+    foreignKey: 'place_image',
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  })
+  ImageOfPlace.belongsTo(Image, {
+    foreignKey: 'place_image'
+  })
+
+  Place.hasMany(ImageOfPlace, {
+    foreignKey: 'place',
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  })
+  ImageOfPlace.belongsTo(ImageOfPlace, { foreignKey: 'place' })
+
+  sequelize.sync()
 }
 
 export default setupModels

@@ -1,4 +1,7 @@
 import {
+  BelongsToCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
   CreationOptional,
   DataTypes,
   InferAttributes,
@@ -8,6 +11,7 @@ import {
   ModelAttributes,
   Sequelize
 } from 'sequelize'
+import { Place } from './Place'
 
 const KIND_OF_PLACE_TABLE = 'types_of_places'
 
@@ -17,6 +21,10 @@ class KindOfPlace extends Model<
 > {
   declare id: CreationOptional<number>
   declare name: string
+
+  declare getPlace: BelongsToGetAssociationMixin<Place>
+  declare setPlace: BelongsToSetAssociationMixin<Place, number>
+  declare createPlace: BelongsToCreateAssociationMixin<Place>
 
   static config (sequelize: Sequelize): InitOptions<KindOfPlace> {
     return {

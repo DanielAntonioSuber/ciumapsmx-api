@@ -4,6 +4,16 @@ import {
   BelongsToSetAssociationMixin,
   CreationOptional,
   DataTypes,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
   InferAttributes,
   InferCreationAttributes,
   InitOptions,
@@ -14,6 +24,7 @@ import {
 import bcrypt from 'bcrypt'
 import { Role } from './Role'
 import { Image } from './Image'
+import { PlaceReview } from './PlaceReview'
 
 const USER_TABLE = 'users'
 
@@ -34,6 +45,17 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare getImage: BelongsToGetAssociationMixin<Image>
   declare setImage: BelongsToSetAssociationMixin<Image, number>
   declare createImage: BelongsToCreateAssociationMixin<Image>
+
+  declare getPlaceReviews: HasManyGetAssociationsMixin<PlaceReview>;
+  declare addPlaceReview: HasManyAddAssociationMixin<PlaceReview, number>;
+  declare addPlaceReviews: HasManyAddAssociationsMixin<PlaceReview, number>;
+  declare setPlaceReviews: HasManySetAssociationsMixin<PlaceReview, number>;
+  declare removePlaceReview: HasManyRemoveAssociationMixin<PlaceReview, number>;
+  declare removePlaceReviews: HasManyRemoveAssociationsMixin<PlaceReview, number>;
+  declare hasPlaceReview: HasManyHasAssociationMixin<PlaceReview, number>;
+  declare hasPlaceReviews: HasManyHasAssociationsMixin<PlaceReview, number>;
+  declare countPlaceReviews: HasManyCountAssociationsMixin;
+  declare createPlaceReview: HasManyCreateAssociationMixin<PlaceReview, 'place'>;
 
   static config (sequelize: Sequelize): InitOptions<User> {
     return {

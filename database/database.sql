@@ -50,7 +50,7 @@ CREATE TABLE images_of_places(
     place_image INT NOT NULL,
     FOREIGN KEY(place) REFERENCES places(place_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(place_image) REFERENCES images(image_id) ON DELETE CASCADE ON UPDATE CASCADE
-)
+);
 
 CREATE TABLE place_rewies(
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

@@ -18,6 +18,7 @@ import {
   ModelAttributes,
   Sequelize
 } from 'sequelize'
+import { ImageOfPlace } from './ImageOfPlace'
 import { User } from './User'
 
 const IMAGE_TABLE = 'images'
@@ -30,16 +31,27 @@ class Image extends Model<
   declare name: string
   declare path: string
 
-  declare getUsers: HasManyGetAssociationsMixin<User>;
-  declare addUser: HasManyAddAssociationMixin<User, number>;
-  declare addUsers: HasManyAddAssociationsMixin<User, number>;
-  declare setUsers: HasManySetAssociationsMixin<User, number>;
-  declare removeUser: HasManyRemoveAssociationMixin<User, number>;
-  declare removeUsers: HasManyRemoveAssociationsMixin<User, number>;
-  declare hasUser: HasManyHasAssociationMixin<User, number>;
-  declare hasUsers: HasManyHasAssociationsMixin<User, number>;
-  declare countUsers: HasManyCountAssociationsMixin;
-  declare createUser: HasManyCreateAssociationMixin<User, 'avatarImage'>;
+  declare getUsers: HasManyGetAssociationsMixin<User>
+  declare addUser: HasManyAddAssociationMixin<User, number>
+  declare addUsers: HasManyAddAssociationsMixin<User, number>
+  declare setUsers: HasManySetAssociationsMixin<User, number>
+  declare removeUser: HasManyRemoveAssociationMixin<User, number>
+  declare removeUsers: HasManyRemoveAssociationsMixin<User, number>
+  declare hasUser: HasManyHasAssociationMixin<User, number>
+  declare hasUsers: HasManyHasAssociationsMixin<User, number>
+  declare countUsers: HasManyCountAssociationsMixin
+  declare createUser: HasManyCreateAssociationMixin<User, 'avatarImage'>
+
+  declare getImageOfPlaces: HasManyGetAssociationsMixin<ImageOfPlace>;
+  declare addImageOfPlace: HasManyAddAssociationMixin<ImageOfPlace, number>;
+  declare addImageOfPlaces: HasManyAddAssociationsMixin<ImageOfPlace, number>;
+  declare setImageOfPlaces: HasManySetAssociationsMixin<ImageOfPlace, number>;
+  declare removeImageOfPlace: HasManyRemoveAssociationMixin<ImageOfPlace, number>;
+  declare removeImageOfPlaces: HasManyRemoveAssociationsMixin<ImageOfPlace, number>;
+  declare hasImageOfPlace: HasManyHasAssociationMixin<ImageOfPlace, number>;
+  declare hasImageOfPlaces: HasManyHasAssociationsMixin<ImageOfPlace, number>;
+  declare countImageOfPlaces: HasManyCountAssociationsMixin;
+  declare createImageOfPlace: HasManyCreateAssociationMixin<ImageOfPlace, 'placeImage'>;
 
   static config (sequelize: Sequelize): InitOptions<Image> {
     return {
