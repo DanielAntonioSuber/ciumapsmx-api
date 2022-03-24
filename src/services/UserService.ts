@@ -1,10 +1,34 @@
 import { Op } from 'sequelize'
+import { Role } from '../database/models/Role'
 import { User } from '../database/models/User'
 import ImageService from './ImageService'
-import RoleService from './RoleService'
 
 class UserService {
-  async create ({
+  private roles = [
+    { id: 10, name: 'admin' },
+    { id: 11, name: 'moderator' },
+    { id: 12, name: 'seller' },
+    { id: 13, name: 'tourist' }
+  ]
+
+  createRoles = async () => {
+    const result = await Role.findAndCountAll()
+    if (result.count === 0) {
+      for (const role of this.roles) {
+        await Role.create(role)
+      }
+      console.log(
+        'Roles were created:',
+        this.roles.map((role) => role.name)
+      )
+    }
+  }
+
+  getRoles () {
+    return this.roles
+  }
+
+  create = async ({
     username,
     email,
     password,
@@ -14,13 +38,12 @@ class UserService {
     email: string
     password: string
     role: string
-  }) {
-    const roleService = new RoleService()
+  }) => {
     const imageService = new ImageService()
     return await User.create({
       username,
       email,
-      role: roleService.getRoles().find((ROLE) => ROLE.name === role)!.id,
+      role: this.getRoles().find((ROLE) => ROLE.name === role)!.id,
       password,
       avatarImage: (await imageService.getDefaultAvatar())!.id
     })

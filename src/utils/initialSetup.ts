@@ -1,10 +1,10 @@
 import ImageService from '../services/ImageService'
 import PlaceService from '../services/PlaceService'
-import RoleService from '../services/RoleService'
+import UserService from '../services/UserService'
 
 async function createRoles () {
-  const roleService = new RoleService()
-  await roleService.createRoles()
+  const userService = new UserService()
+  await userService.createRoles()
 }
 
 function createAdmins () {}
