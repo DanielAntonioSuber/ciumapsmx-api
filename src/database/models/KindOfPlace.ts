@@ -30,7 +30,8 @@ class KindOfPlace extends Model<
     return {
       sequelize,
       tableName: KIND_OF_PLACE_TABLE,
-      modelName: 'KindOfPlace'
+      modelName: 'KindOfPlace',
+      timestamps: false
     }
   }
 }

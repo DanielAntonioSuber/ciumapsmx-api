@@ -38,7 +38,8 @@ InferCreationAttributes<PlaceReview>
     return {
       sequelize,
       tableName: PLACE_REVIEW_TABLE,
-      modelName: 'PlaceReview'
+      modelName: 'PlaceReview',
+      timestamps: false
     }
   }
 }

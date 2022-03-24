@@ -36,7 +36,8 @@ class ImageOfPlace extends Model<
     return {
       sequelize,
       tableName: IMAGE_OF_PLACE_TABLE,
-      modelName: 'ImageOfPlace'
+      modelName: 'ImageOfPlace',
+      timestamps: false
     }
   }
 }
