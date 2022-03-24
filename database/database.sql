@@ -29,8 +29,8 @@ CREATE TABLE users(
 );
 
 CREATE TABLE types_of_places(
-    kind_of_place_id INT PRIMARY KEY NOT NULL,
-    kind_name VARCHAR(50) NOT NULL
+    kind_of_place_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    kind_name VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE places(
