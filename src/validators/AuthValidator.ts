@@ -35,8 +35,8 @@ class AuthValidator {
   ]
 
   signIn = [
-    check('email').exists().isEmail(),
-    check('username').exists(),
+    check('email').optional().exists(),
+    check('username').optional().exists(),
     check('password').exists().notEmpty(),
     validateResult
   ]
