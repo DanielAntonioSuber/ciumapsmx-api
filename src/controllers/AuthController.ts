@@ -28,7 +28,7 @@ class AuthController {
   signIn = async (req: Request, res: Response) => {
     const { username, email, password } = req.body
 
-    const user = await this.service.findByUsernameOrEmail(username, email)
+    const user = await this.service.findOneByUsernameOrEmail(username, email)
 
     if (!user) {
       return res.status(400).json({ message: 'The User does not exists' })

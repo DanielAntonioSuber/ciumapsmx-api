@@ -12,12 +12,12 @@ class AuthValidator {
     const { username, email } = req.body
     const userService = new UserService()
 
-    const userByUsername = await userService.findByUsername(username)
+    const userByUsername = await userService.findOneByUsername(username)
     if (userByUsername) {
       return res.status(400).json({ message: 'The user already exists' })
     }
 
-    const userByEmail = await userService.findByEmail(email)
+    const userByEmail = await userService.findOneByEmail(email)
     if (userByEmail) {
       return res.status(400).json({ message: 'The email already exists' })
     }

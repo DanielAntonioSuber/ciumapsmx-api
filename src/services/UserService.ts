@@ -26,19 +26,19 @@ class UserService {
     })
   }
 
-  async findById (id: number) {
+  async findOneById (id: number) {
     return await User.findByPk(id)
   }
 
-  async findByEmail (email: string) {
+  async findOneByEmail (email: string) {
     return await User.findOne({ where: { email } })
   }
 
-  async findByUsername (username: string) {
+  async findOneByUsername (username: string) {
     return await User.findOne({ where: { username } })
   }
 
-  async findByUsernameOrEmail (username: string, email: string) {
+  async findOneByUsernameOrEmail (username: string, email: string) {
     return await User.findOne({ where: { [Op.or]: [{ username }, { email }] } })
   }
 }

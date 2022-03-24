@@ -10,7 +10,7 @@ const opts: StrategyOptions = {
 export default new Strategy(opts, async (payload, done) => {
   try {
     const userService = new UserService()
-    const user = await userService.findById(payload.id)
+    const user = await userService.findOneById(payload.id)
 
     if (user) {
       const { id, email, username } = user
