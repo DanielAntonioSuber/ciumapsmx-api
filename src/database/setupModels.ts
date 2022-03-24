@@ -66,8 +66,6 @@ function setupModels (sequelize: Sequelize) {
     onDelete: 'CASCADE'
   })
   ImageOfPlace.belongsTo(ImageOfPlace, { foreignKey: 'place' })
-
-  sequelize.sync()
 }
 
 export default setupModels
