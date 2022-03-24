@@ -9,8 +9,8 @@ class KindOfPlaceService {
       for (const place of this.typesOfPlaces) {
         KindOfPlace.create({ name: place })
       }
+      console.log('Types of places was created')
     }
-    console.log('Types of places was created')
   }
 }
 
