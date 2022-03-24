@@ -50,7 +50,8 @@ const KindOfPlaceAttributes: ModelAttributes<
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true
+    unique: true,
+    field: 'kind_name'
   }
 }
 
