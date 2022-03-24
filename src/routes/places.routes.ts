@@ -2,9 +2,11 @@ import { Router } from 'express'
 import multer from 'multer'
 import PlaceController from '../controllers/PlaceController'
 import path from 'path'
+import PlaceValidator from '../validators/PlaceValidator'
 
 const router = Router()
 const controller = new PlaceController()
+const validator = new PlaceValidator()
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -20,8 +22,8 @@ const upload = multer({
 })
 
 router.post(
-  '',
-  upload.array('imagePlace', 5),
+  '/',
+  [...validator.createPlace, upload.array('imageOfPlace', 5)],
   controller.createPlace
 )
 
