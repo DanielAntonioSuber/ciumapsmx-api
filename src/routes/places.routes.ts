@@ -4,6 +4,7 @@ import PlaceController from '../controllers/PlaceController'
 import path from 'path'
 import PlaceValidator from '../validators/PlaceValidator'
 import { Place } from '../database/models/Place'
+import { APP_PORT } from '../config/app'
 
 const router = Router()
 const controller = new PlaceController()
@@ -39,7 +40,7 @@ router.get('/', async (req: Request, res: Response) => {
             const image = await img.getImage()
             return {
               name: image.name,
-              path: image.path
+              path: `http://localhost:${APP_PORT}/` + image.path
             }
           })
         )

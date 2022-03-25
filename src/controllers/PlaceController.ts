@@ -7,7 +7,7 @@ class PlaceController {
     if (req.files) {
       const images = (req.files as Express.Multer.File[]).map((file) => ({
         name: file.filename,
-        path: file.path
+        path: file.originalname
       }))
       this.service.createPlace({ ...req.body, images })
     }

@@ -25,7 +25,8 @@
     "mysql2": "^2.3.3",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
-    "sequelize": "^6.17.0"
+    "sequelize": "^6.17.0",
+    "serve-static": "^1.15.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
