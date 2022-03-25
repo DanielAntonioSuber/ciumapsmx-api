@@ -9,10 +9,9 @@ class PlaceController {
         name: file.filename,
         path: file.path
       }))
-      console.log(images)
       this.service.createPlace({ ...req.body, images })
     }
-    res.json(req.body)
+    res.status(201)
     // if (req.files && req.files) {
     //   return res.status(400).json({ message: 'Not images' })
     // }
