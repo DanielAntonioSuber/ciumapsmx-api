@@ -23,7 +23,7 @@ const upload = multer({
 
 router.post(
   '/',
-  [...validator.createPlace, upload.array('imageOfPlace', 5)],
+  [upload.array('imageOfPlace', 5), ...validator.createPlace],
   controller.createPlace
 )
 

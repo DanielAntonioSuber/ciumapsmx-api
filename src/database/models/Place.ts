@@ -88,9 +88,9 @@ const PlaceAttributes: ModelAttributes<Place, InferAttributes<Place>> = {
     allowNull: false,
     field: 'place_name'
   },
-  description: { type: DataTypes.TEXT },
+  description: { type: DataTypes.TEXT, field: 'place_description' },
   direction: { type: DataTypes.STRING(100), allowNull: false },
-  kind: { type: DataTypes.INTEGER, allowNull: false },
+  kind: { type: DataTypes.INTEGER, field: 'kind_of_place' },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE
 }
