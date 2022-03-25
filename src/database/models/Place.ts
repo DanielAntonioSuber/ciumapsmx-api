@@ -32,7 +32,7 @@ class Place extends Model<
   InferCreationAttributes<Place>
 > {
   declare id: CreationOptional<number>
-  declare kind: number
+  declare kind: CreationOptional<number>
   declare name: string
   declare description: string
   declare direction: string
@@ -85,7 +85,8 @@ const PlaceAttributes: ModelAttributes<Place, InferAttributes<Place>> = {
   name: {
     type: DataTypes.STRING(100),
     unique: true,
-    allowNull: false
+    allowNull: false,
+    field: 'place_name'
   },
   description: { type: DataTypes.TEXT },
   direction: { type: DataTypes.STRING(100), allowNull: false },
