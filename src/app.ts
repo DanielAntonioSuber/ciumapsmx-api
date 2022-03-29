@@ -1,5 +1,4 @@
 import express from 'express'
-import helmet from 'helmet'
 import morgan from 'morgan'
 import cors from 'cors'
 import path from 'path'
@@ -20,6 +19,7 @@ app.set('port', APP_PORT)
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 app.use(passport.initialize())
 passport.use(passportMiddleware)
 
