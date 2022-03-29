@@ -12,16 +12,9 @@ class PlaceController {
       this.service.createPlace({ ...req.body, images })
     }
     res.status(201)
-    // if (req.files && req.files) {
-    //   return res.status(400).json({ message: 'Not images' })
-    // }
-
-    // const newPlace = await this.service.createPlace(req.body)
-    // if (newPlace) {
-    //   return res.status(201).json({ message: 'Place was created' })
-    // }
-    // res.status(400).json({ message: 'error' })
   }
+
+  getAllPlaces = async (req: Request, res: Response) => {}
 }
 
 export default PlaceController
