@@ -11,7 +11,7 @@ class PlaceController {
       }))
       this.service.createPlace({ ...req.body, images })
     }
-    res.status(201)
+    res.status(201).json({ message: 'Place was created' })
   }
 
   getAllPlaces = async (req: Request, res: Response) => {}
