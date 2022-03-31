@@ -28,11 +28,13 @@ router.post(
   [upload.array('imageOfPlace', 5), ...validator.createPlace],
   controller.createPlace
 )
+
 router.get('/', async (req: Request, res: Response) => {
   const places = await Place.findAll()
   res.json(
     await Promise.all(
       places.map(async (place) => ({
+        id: place.id,
         name: place.name,
         description: place.description,
         images: await Promise.all(
@@ -47,6 +49,23 @@ router.get('/', async (req: Request, res: Response) => {
       }))
     )
   )
+})
+
+router.get('/:id', async (req: Request, res: Response) => {
+  const place = await Place.findByPk(req.params.id)
+  res.json({
+    name: place?.name,
+    description: place?.description,
+    images: await Promise.all(
+      (await place!.getImageOfPlaces()).map(async (img) => {
+        const image = await img.getImage()
+        return {
+          name: image.name,
+          path: `http://localhost:${APP_PORT}/` + image.path
+        }
+      })
+    )
+  })
 })
 
 export default router
