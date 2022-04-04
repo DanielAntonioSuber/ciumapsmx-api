@@ -7,14 +7,16 @@ class PlaceController {
     if (req.files) {
       const images = (req.files as Express.Multer.File[]).map((file) => ({
         name: file.fieldname,
-        path: file.filename
+        path: 'api ' + file.filename
       }))
       this.service.createPlace({ ...req.body, images })
     }
     res.status(201).json({ message: 'Place was created' })
   }
 
-  getAllPlaces = async (req: Request, res: Response) => {}
+  getAllPlaces = async (req: Request, res: Response) => {
+
+  }
 }
 
 export default PlaceController

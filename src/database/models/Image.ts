@@ -18,6 +18,7 @@ import {
   ModelAttributes,
   Sequelize
 } from 'sequelize'
+import { APP_URL } from '../../config/app'
 import { ImageOfPlace } from './ImageOfPlace'
 import { User } from './User'
 
@@ -42,16 +43,27 @@ class Image extends Model<
   declare countUsers: HasManyCountAssociationsMixin
   declare createUser: HasManyCreateAssociationMixin<User, 'avatarImage'>
 
-  declare getImageOfPlaces: HasManyGetAssociationsMixin<ImageOfPlace>;
-  declare addImageOfPlace: HasManyAddAssociationMixin<ImageOfPlace, number>;
-  declare addImageOfPlaces: HasManyAddAssociationsMixin<ImageOfPlace, number>;
-  declare setImageOfPlaces: HasManySetAssociationsMixin<ImageOfPlace, number>;
-  declare removeImageOfPlace: HasManyRemoveAssociationMixin<ImageOfPlace, number>;
-  declare removeImageOfPlaces: HasManyRemoveAssociationsMixin<ImageOfPlace, number>;
-  declare hasImageOfPlace: HasManyHasAssociationMixin<ImageOfPlace, number>;
-  declare hasImageOfPlaces: HasManyHasAssociationsMixin<ImageOfPlace, number>;
-  declare countImageOfPlaces: HasManyCountAssociationsMixin;
-  declare createImageOfPlace: HasManyCreateAssociationMixin<ImageOfPlace, 'placeImage'>;
+  declare getImageOfPlaces: HasManyGetAssociationsMixin<ImageOfPlace>
+  declare addImageOfPlace: HasManyAddAssociationMixin<ImageOfPlace, number>
+  declare addImageOfPlaces: HasManyAddAssociationsMixin<ImageOfPlace, number>
+  declare setImageOfPlaces: HasManySetAssociationsMixin<ImageOfPlace, number>
+  declare removeImageOfPlace: HasManyRemoveAssociationMixin<
+    ImageOfPlace,
+    number
+  >
+
+  declare removeImageOfPlaces: HasManyRemoveAssociationsMixin<
+    ImageOfPlace,
+    number
+  >
+
+  declare hasImageOfPlace: HasManyHasAssociationMixin<ImageOfPlace, number>
+  declare hasImageOfPlaces: HasManyHasAssociationsMixin<ImageOfPlace, number>
+  declare countImageOfPlaces: HasManyCountAssociationsMixin
+  declare createImageOfPlace: HasManyCreateAssociationMixin<
+    ImageOfPlace,
+    'placeImage'
+  >
 
   static config (sequelize: Sequelize): InitOptions<Image> {
     return {
@@ -76,7 +88,17 @@ const ImageAttributes: ModelAttributes<Image, InferAttributes<Image>> = {
     allowNull: false,
     field: 'image_name'
   },
-  path: { type: DataTypes.STRING(255), allowNull: false, field: 'image_path' }
+  path: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    field: 'image_path',
+    get () {
+      const rawValue = this.getDataValue('path')
+      return rawValue.substring(0, 4) === 'api '
+        ? APP_URL + rawValue.substring(4)
+        : rawValue
+    }
+  }
 }
 
 export { Image, ImageAttributes, IMAGE_TABLE }
