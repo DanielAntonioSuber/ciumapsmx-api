@@ -36,7 +36,7 @@ class PlaceService {
 
     images.forEach(async (image) =>
       newPlace.createImageOfPlace({
-        placeImage: (await Image.create(image)).id
+        imageId: (await Image.create(image)).id
       })
     )
     return newPlace

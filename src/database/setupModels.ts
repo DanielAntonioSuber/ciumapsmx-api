@@ -7,7 +7,7 @@ import { PlaceReview, PlaceReviewAttributes } from './models/PlaceReview'
 import { Role, RoleAttributes } from './models/Role'
 import { User, UserAttributes } from './models/User'
 
-async function setupModels (sequelize: Sequelize) {
+function setupModels (sequelize: Sequelize) {
   User.init(UserAttributes, User.config(sequelize))
   Role.init(RoleAttributes, Role.config(sequelize))
   Image.init(ImageAttributes, Image.config(sequelize))
