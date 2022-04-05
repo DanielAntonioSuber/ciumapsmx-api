@@ -1,3 +1,9 @@
+drop database if exists ciumapsmx;
+
+create database ciumapsmx;
+
+use ciumapsmx;
+
 CREATE TABLE IF NOT EXISTS `roles`
   (
      `id`   INTEGER,
@@ -10,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `images`
   (
      `id`   INTEGER NOT NULL auto_increment,
      `name` VARCHAR(50) NOT NULL,
-     `path` VARCHAR(255) BINARY NOT NULL UNIQUE,
+     `path` VARCHAR(255) NOT NULL UNIQUE,
      PRIMARY KEY (`id`)
   )
 engine=innodb;
