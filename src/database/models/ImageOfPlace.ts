@@ -58,9 +58,8 @@ const ImageOfPlaceAttributes: ModelAttributes<
   },
   placeId: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
   imageId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    field: 'place_image'
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false
   }
 }
 

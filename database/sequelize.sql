@@ -81,11 +81,11 @@ CREATE TABLE IF NOT EXISTS `images_of_places`
   (
      `id`          INTEGER UNSIGNED NOT NULL auto_increment,
      `placeid`     INTEGER UNSIGNED NOT NULL,
-     `place_image` INTEGER NOT NULL,
+     `imageid` INTEGER UNSIGNED NOT NULL,
      PRIMARY KEY (`id`),
      FOREIGN KEY (`placeid`) REFERENCES `places` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE,
-     FOREIGN KEY (`place_image`) REFERENCES `images` (`id`) ON DELETE CASCADE ON
+     FOREIGN KEY (`imageid`) REFERENCES `images` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE
   )
 engine=innodb; 
