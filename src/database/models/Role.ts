@@ -49,10 +49,9 @@ class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
 const RoleAttributes: ModelAttributes<Role, InferAttributes<Role>> = {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    field: 'role_id'
+    primaryKey: true
   },
-  name: { type: DataTypes.STRING(30), field: 'role_name' }
+  name: { type: DataTypes.STRING(30) }
 }
 
 export { Role, RoleAttributes, ROLE_TABLE }

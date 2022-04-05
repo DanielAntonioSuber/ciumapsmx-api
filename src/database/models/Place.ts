@@ -79,18 +79,16 @@ const PlaceAttributes: ModelAttributes<Place, InferAttributes<Place>> = {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
-    autoIncrement: true,
-    field: 'place_id'
+    autoIncrement: true
   },
   name: {
     type: DataTypes.STRING(100),
     unique: true,
-    allowNull: false,
-    field: 'place_name'
+    allowNull: false
   },
-  description: { type: DataTypes.TEXT, field: 'place_description' },
+  description: { type: DataTypes.TEXT },
   direction: { type: DataTypes.STRING(100), allowNull: false },
-  kind: { type: DataTypes.INTEGER, field: 'kind_of_place' },
+  kind: { type: DataTypes.INTEGER },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE
 }

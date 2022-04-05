@@ -7,7 +7,7 @@ import { PlaceReview, PlaceReviewAttributes } from './models/PlaceReview'
 import { Role, RoleAttributes } from './models/Role'
 import { User, UserAttributes } from './models/User'
 
-function setupModels (sequelize: Sequelize) {
+async function setupModels (sequelize: Sequelize) {
   User.init(UserAttributes, User.config(sequelize))
   Role.init(RoleAttributes, Role.config(sequelize))
   Image.init(ImageAttributes, Image.config(sequelize))
@@ -17,53 +17,39 @@ function setupModels (sequelize: Sequelize) {
   Place.init(PlaceAttributes, Place.config(sequelize))
 
   Role.hasMany(User, {
-    foreignKey: 'role',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    foreignKey: 'role'
   })
   User.belongsTo(Role, { foreignKey: 'role' })
 
   Image.hasMany(User, {
-    foreignKey: 'avatar_image',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    foreignKey: 'avatarImage'
   })
-  User.belongsTo(Image, { foreignKey: 'avatar_image' })
+  User.belongsTo(Image, { foreignKey: 'avatarImage' })
 
   User.hasMany(PlaceReview, {
-    foreignKey: 'user',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    foreignKey: 'user'
   })
   PlaceReview.belongsTo(User, { foreignKey: 'user' })
 
   Place.hasMany(PlaceReview, {
-    foreignKey: 'place',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    foreignKey: 'place'
   })
   PlaceReview.belongsTo(Place, { foreignKey: 'place' })
 
   KindOfPlace.hasMany(Place, {
-    foreignKey: 'kind_of_place',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    foreignKey: 'kind'
   })
-  Place.belongsTo(KindOfPlace, { foreignKey: 'kind_of_place' })
+  Place.belongsTo(KindOfPlace, { foreignKey: 'kind' })
 
   Image.hasMany(ImageOfPlace, {
-    foreignKey: 'place_image',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    foreignKey: 'placeImage'
   })
   ImageOfPlace.belongsTo(Image, {
-    foreignKey: 'place_image'
+    foreignKey: 'placeImage'
   })
 
   Place.hasMany(ImageOfPlace, {
-    foreignKey: 'place',
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    foreignKey: 'place'
   })
   ImageOfPlace.belongsTo(ImageOfPlace, { foreignKey: 'place' })
 }

@@ -70,7 +70,6 @@ const UserAttributes: ModelAttributes<User, InferAttributes<User>> = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    field: 'user_id',
     autoIncrement: true,
     allowNull: false
   },
@@ -88,8 +87,7 @@ const UserAttributes: ModelAttributes<User, InferAttributes<User>> = {
   },
   email: { type: DataTypes.STRING(40), allowNull: false, unique: true },
   avatarImage: {
-    type: DataTypes.NUMBER,
-    field: 'avatar_image',
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   createdAt: DataTypes.DATE,

@@ -44,14 +44,12 @@ const KindOfPlaceAttributes: ModelAttributes<
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
-    field: 'kind_of_place_id',
     allowNull: false
   },
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true,
-    field: 'kind_name'
+    unique: true
   }
 }
 

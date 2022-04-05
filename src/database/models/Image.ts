@@ -79,19 +79,17 @@ const ImageAttributes: ModelAttributes<Image, InferAttributes<Image>> = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    field: 'image_id',
     autoIncrement: true,
     allowNull: false
   },
   name: {
     type: DataTypes.STRING(50),
-    allowNull: false,
-    field: 'image_name'
+    allowNull: false
   },
   path: {
+    unique: true,
     type: DataTypes.STRING(255),
     allowNull: false,
-    field: 'image_path',
     get () {
       const rawValue = this.getDataValue('path')
       return rawValue.substring(0, 4) === 'api '
