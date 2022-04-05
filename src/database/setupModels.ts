@@ -17,9 +17,9 @@ async function setupModels (sequelize: Sequelize) {
   Place.init(PlaceAttributes, Place.config(sequelize))
 
   Role.hasMany(User, {
-    foreignKey: 'role'
+    foreignKey: 'roleId'
   })
-  User.belongsTo(Role, { foreignKey: 'role' })
+  User.belongsTo(Role, { foreignKey: 'roleId' })
 
   Image.hasMany(User, {
     foreignKey: 'avatarImage'
@@ -27,14 +27,14 @@ async function setupModels (sequelize: Sequelize) {
   User.belongsTo(Image, { foreignKey: 'avatarImage' })
 
   User.hasMany(PlaceReview, {
-    foreignKey: 'user'
+    foreignKey: 'userId'
   })
-  PlaceReview.belongsTo(User, { foreignKey: 'user' })
+  PlaceReview.belongsTo(User, { foreignKey: 'userId' })
 
   Place.hasMany(PlaceReview, {
-    foreignKey: 'place'
+    foreignKey: 'placeId'
   })
-  PlaceReview.belongsTo(Place, { foreignKey: 'place' })
+  PlaceReview.belongsTo(Place, { foreignKey: 'placeId' })
 
   KindOfPlace.hasMany(Place, {
     foreignKey: 'kind'
@@ -42,16 +42,16 @@ async function setupModels (sequelize: Sequelize) {
   Place.belongsTo(KindOfPlace, { foreignKey: 'kind' })
 
   Image.hasMany(ImageOfPlace, {
-    foreignKey: 'placeImage'
+    foreignKey: 'imageId'
   })
   ImageOfPlace.belongsTo(Image, {
-    foreignKey: 'placeImage'
+    foreignKey: 'imageId'
   })
 
   Place.hasMany(ImageOfPlace, {
-    foreignKey: 'place'
+    foreignKey: 'placeId'
   })
-  ImageOfPlace.belongsTo(ImageOfPlace, { foreignKey: 'place' })
+  ImageOfPlace.belongsTo(ImageOfPlace, { foreignKey: 'placeId' })
 }
 
 export default setupModels

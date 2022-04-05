@@ -40,10 +40,11 @@ class UserService {
     role: string
   }) => {
     const imageService = new ImageService()
+
     return await User.create({
       username,
       email,
-      role: this.getRoles().find((ROLE) => ROLE.name === role)!.id,
+      roleId: this.getRoles().find((ROLE) => ROLE.name === role)!.id,
       password,
       avatarImage: (await imageService.getDefaultAvatar())!.id
     })

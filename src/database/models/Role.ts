@@ -1,4 +1,5 @@
 import {
+  Association,
   DataTypes,
   HasManyAddAssociationMixin,
   HasManyAddAssociationsMixin,
@@ -15,6 +16,7 @@ import {
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import { User } from './User'
@@ -34,7 +36,13 @@ class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
   declare hasUser: HasManyHasAssociationMixin<User, number>
   declare hasUsers: HasManyHasAssociationsMixin<User, number>
   declare countUsers: HasManyCountAssociationsMixin
-  declare createUser: HasManyCreateAssociationMixin<User, 'role'>
+  declare createUser: HasManyCreateAssociationMixin<User, 'roleId'>
+
+  declare users?: NonAttribute<User>
+
+  declare static associations: {
+    users: Association<Role, User>
+  }
 
   static config (sequelize: Sequelize): InitOptions<Role> {
     return {
@@ -48,7 +56,7 @@ class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
 
 const RoleAttributes: ModelAttributes<Role, InferAttributes<Role>> = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true
   },
   name: { type: DataTypes.STRING(30) }

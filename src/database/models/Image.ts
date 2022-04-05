@@ -1,4 +1,5 @@
 import {
+  Association,
   CreationOptional,
   DataTypes,
   HasManyAddAssociationMixin,
@@ -16,6 +17,7 @@ import {
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import { APP_URL } from '../../config/app'
@@ -62,8 +64,16 @@ class Image extends Model<
   declare countImageOfPlaces: HasManyCountAssociationsMixin
   declare createImageOfPlace: HasManyCreateAssociationMixin<
     ImageOfPlace,
-    'placeImage'
+    'imageId'
   >
+
+  declare users?: NonAttribute<User>
+  declare imageOfPlaces?: NonAttribute<ImageOfPlace[]>
+
+  declare static associations: {
+    users: Association<Image, User>
+    imageOfPlaces: Association<Image, ImageOfPlace>
+  }
 
   static config (sequelize: Sequelize): InitOptions<Image> {
     return {
@@ -77,7 +87,7 @@ class Image extends Model<
 
 const ImageAttributes: ModelAttributes<Image, InferAttributes<Image>> = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false

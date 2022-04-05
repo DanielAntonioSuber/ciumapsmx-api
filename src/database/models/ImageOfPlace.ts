@@ -9,6 +9,7 @@ import {
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import { Image } from './Image'
@@ -21,8 +22,8 @@ class ImageOfPlace extends Model<
   InferCreationAttributes<ImageOfPlace>
 > {
   declare id: CreationOptional<number>
-  declare place: number
-  declare placeImage: number
+  declare placeId: number
+  declare imageId: number
 
   declare getPlace: BelongsToGetAssociationMixin<Place>
   declare setPlace: BelongsToSetAssociationMixin<Place, number>
@@ -31,6 +32,9 @@ class ImageOfPlace extends Model<
   declare getImage: BelongsToGetAssociationMixin<Image>
   declare setImage: BelongsToSetAssociationMixin<Image, number>
   declare createImage: BelongsToCreateAssociationMixin<Image>
+
+  declare place?: NonAttribute<Place>
+  declare image?: NonAttribute<Image>
 
   static config (sequelize: Sequelize): InitOptions<ImageOfPlace> {
     return {
@@ -47,13 +51,13 @@ const ImageOfPlaceAttributes: ModelAttributes<
   InferAttributes<ImageOfPlace>
 > = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
   },
-  place: { type: DataTypes.INTEGER, allowNull: false },
-  placeImage: {
+  placeId: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
+  imageId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'place_image'

@@ -1,4 +1,5 @@
 import {
+  Association,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
@@ -19,6 +20,7 @@ import {
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import bcrypt from 'bcrypt'
@@ -30,7 +32,7 @@ const USER_TABLE = 'users'
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>
-  declare role: number
+  declare roleId: number
   declare username: string
   declare password: string
   declare email: string
@@ -46,16 +48,28 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare setImage: BelongsToSetAssociationMixin<Image, number>
   declare createImage: BelongsToCreateAssociationMixin<Image>
 
-  declare getPlaceReviews: HasManyGetAssociationsMixin<PlaceReview>;
-  declare addPlaceReview: HasManyAddAssociationMixin<PlaceReview, number>;
-  declare addPlaceReviews: HasManyAddAssociationsMixin<PlaceReview, number>;
-  declare setPlaceReviews: HasManySetAssociationsMixin<PlaceReview, number>;
-  declare removePlaceReview: HasManyRemoveAssociationMixin<PlaceReview, number>;
-  declare removePlaceReviews: HasManyRemoveAssociationsMixin<PlaceReview, number>;
-  declare hasPlaceReview: HasManyHasAssociationMixin<PlaceReview, number>;
-  declare hasPlaceReviews: HasManyHasAssociationsMixin<PlaceReview, number>;
-  declare countPlaceReviews: HasManyCountAssociationsMixin;
-  declare createPlaceReview: HasManyCreateAssociationMixin<PlaceReview, 'place'>;
+  declare getPlaceReviews: HasManyGetAssociationsMixin<PlaceReview>
+  declare addPlaceReview: HasManyAddAssociationMixin<PlaceReview, number>
+  declare addPlaceReviews: HasManyAddAssociationsMixin<PlaceReview, number>
+  declare setPlaceReviews: HasManySetAssociationsMixin<PlaceReview, number>
+  declare removePlaceReview: HasManyRemoveAssociationMixin<PlaceReview, number>
+  declare removePlaceReviews: HasManyRemoveAssociationsMixin<
+    PlaceReview,
+    number
+  >
+
+  declare hasPlaceReview: HasManyHasAssociationMixin<PlaceReview, number>
+  declare hasPlaceReviews: HasManyHasAssociationsMixin<PlaceReview, number>
+  declare countPlaceReviews: HasManyCountAssociationsMixin
+  declare createPlaceReview: HasManyCreateAssociationMixin<PlaceReview, 'placeId'>
+
+  declare role?: NonAttribute<Role>
+  declare image?: NonAttribute<Image>
+  declare placeReviews?: NonAttribute<PlaceReview>
+
+  declare static associations: {
+    placeReviews: Association<User, PlaceReview>
+  }
 
   static config (sequelize: Sequelize): InitOptions<User> {
     return {
@@ -68,12 +82,12 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 const UserAttributes: ModelAttributes<User, InferAttributes<User>> = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
   },
-  role: { type: DataTypes.INTEGER, allowNull: false },
+  roleId: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
   username: { type: DataTypes.STRING(40), allowNull: false, unique: true },
   password: {
     type: DataTypes.STRING(100),
@@ -87,7 +101,7 @@ const UserAttributes: ModelAttributes<User, InferAttributes<User>> = {
   },
   email: { type: DataTypes.STRING(40), allowNull: false, unique: true },
   avatarImage: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
   createdAt: DataTypes.DATE,

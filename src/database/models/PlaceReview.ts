@@ -9,6 +9,7 @@ import {
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import { Place } from './Place'
@@ -21,8 +22,8 @@ InferAttributes<PlaceReview>,
 InferCreationAttributes<PlaceReview>
 > {
   declare id: CreationOptional<number>
-  declare user: number
-  declare place: number
+  declare userId: number
+  declare placeId: number
   declare starScore: number
   declare securityScore: number
 
@@ -33,6 +34,9 @@ InferCreationAttributes<PlaceReview>
   declare getPlace: BelongsToGetAssociationMixin<Place>
   declare setPlace: BelongsToSetAssociationMixin<Place, number>
   declare createPlace: BelongsToCreateAssociationMixin<Place>
+
+  declare user?: NonAttribute<User>
+  declare place?: NonAttribute<Place>
 
   static config (sequelize: Sequelize): InitOptions<PlaceReview> {
     return {
@@ -49,26 +53,26 @@ const PlaceReviewAttributes: ModelAttributes<
   InferAttributes<PlaceReview>
 > = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
   },
-  user: {
-    type: DataTypes.INTEGER,
+  userId: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
-  place: {
-    type: DataTypes.INTEGER,
+  placeId: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
   starScore: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     defaultValue: 0
   },
   securityScore: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     defaultValue: 0
   }
