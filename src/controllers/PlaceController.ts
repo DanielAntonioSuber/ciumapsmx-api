@@ -3,6 +3,7 @@ import PlaceService from '../services/PlaceService'
 
 class PlaceController {
   service = new PlaceService()
+
   createPlace = async (req: Request, res: Response) => {
     if (req.files) {
       const images = (req.files as Express.Multer.File[]).map((file) => ({
@@ -15,6 +16,11 @@ class PlaceController {
   }
 
   getAllPlaces = async (req: Request, res: Response) => {
+    const places = await this.service.getAllPlaces()
+    res.json(places)
+  }
+
+  getPlaceById = async (req: Request, res: Response) => {
 
   }
 }

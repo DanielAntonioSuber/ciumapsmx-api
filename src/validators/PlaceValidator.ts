@@ -9,6 +9,7 @@ class PlaceValidator {
     body('description').exists().notEmpty().isString(),
     body('direction').exists().notEmpty().isString(),
     body('kind').exists().notEmpty().isString(),
+    body('imageOfPlace').exists().notEmpty(),
     validateResult
   ]
 }

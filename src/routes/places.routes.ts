@@ -4,7 +4,6 @@ import PlaceController from '../controllers/PlaceController'
 import path from 'path'
 import PlaceValidator from '../validators/PlaceValidator'
 import { Place } from '../database/models/Place'
-import { APP_PORT } from '../config/app'
 
 const router = Router()
 const controller = new PlaceController()
@@ -29,27 +28,7 @@ router.post(
   controller.createPlace
 )
 
-router.get('/', async (req: Request, res: Response) => {
-  const places = await Place.findAll()
-  res.json(
-    await Promise.all(
-      places.map(async (place) => ({
-        id: place.id,
-        name: place.name,
-        description: place.description,
-        images: await Promise.all(
-          (await place.getImageOfPlaces()).map(async (img) => {
-            const image = await img.getImage()
-            return {
-              name: image.name,
-              path: `http://localhost:${APP_PORT}/` + image.path
-            }
-          })
-        )
-      }))
-    )
-  )
-})
+router.get('/', controller.getAllPlaces)
 
 router.get('/:id', async (req: Request, res: Response) => {
   const place = await Place.findByPk(req.params.id)
@@ -61,7 +40,7 @@ router.get('/:id', async (req: Request, res: Response) => {
         const image = await img.getImage()
         return {
           name: image.name,
-          path: `http://localhost:${APP_PORT}/` + image.path
+          path: image.path
         }
       })
     )
