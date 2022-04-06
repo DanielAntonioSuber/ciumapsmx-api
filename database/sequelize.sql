@@ -24,17 +24,17 @@ engine=innodb;
 CREATE TABLE IF NOT EXISTS `users`
   (
      `id`          INTEGER UNSIGNED NOT NULL auto_increment,
-     `roleid`      INTEGER UNSIGNED NOT NULL,
+     `roleId`      INTEGER UNSIGNED NOT NULL,
      `username`    VARCHAR(40) NOT NULL UNIQUE,
      `password`    VARCHAR(100) NOT NULL,
      `email`       VARCHAR(40) NOT NULL UNIQUE,
-     `avatarimage` INTEGER UNSIGNED NOT NULL,
-     `createdat`   DATETIME,
-     `updatedat`   DATETIME,
+     `avatarImage` INTEGER UNSIGNED NOT NULL,
+     `createdAt`   DATETIME,
+     `updatedAt`   DATETIME,
      PRIMARY KEY (`id`),
-     FOREIGN KEY (`roleid`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON
+     FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE,
-     FOREIGN KEY (`avatarimage`) REFERENCES `images` (`id`) ON DELETE CASCADE ON
+     FOREIGN KEY (`avatarImage`) REFERENCES `images` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE
   )
 engine=innodb;
@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS `places`
      `description` TEXT,
      `direction`   VARCHAR(100) NOT NULL,
      `kind`        INTEGER UNSIGNED,
-     `createdat`   DATETIME,
-     `updatedat`   DATETIME,
+     `createdAt`   DATETIME,
+     `updatedAt`   DATETIME,
      PRIMARY KEY (`id`),
      FOREIGN KEY (`kind`) REFERENCES `types_of_places` (`id`) ON DELETE CASCADE
      ON UPDATE CASCADE
@@ -65,14 +65,14 @@ engine=innodb;
 CREATE TABLE IF NOT EXISTS `place_reviews`
   (
      `id`            INTEGER UNSIGNED NOT NULL auto_increment,
-     `userid`        INTEGER UNSIGNED NOT NULL,
-     `placeid`       INTEGER UNSIGNED NOT NULL,
-     `starscore`     INTEGER UNSIGNED NOT NULL DEFAULT 0,
-     `securityscore` INTEGER UNSIGNED NOT NULL DEFAULT 0,
+     `userId`        INTEGER UNSIGNED NOT NULL,
+     `placeId`       INTEGER UNSIGNED NOT NULL,
+     `starScore`     INTEGER UNSIGNED NOT NULL DEFAULT 0,
+     `securityScore` INTEGER UNSIGNED NOT NULL DEFAULT 0,
      PRIMARY KEY (`id`),
-     FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON
+     FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE,
-     FOREIGN KEY (`placeid`) REFERENCES `places` (`id`) ON DELETE CASCADE ON
+     FOREIGN KEY (`placeId`) REFERENCES `places` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE
   )
 engine=innodb;
@@ -80,12 +80,12 @@ engine=innodb;
 CREATE TABLE IF NOT EXISTS `images_of_places`
   (
      `id`          INTEGER UNSIGNED NOT NULL auto_increment,
-     `placeid`     INTEGER UNSIGNED NOT NULL,
-     `imageid` INTEGER UNSIGNED NOT NULL,
+     `placeId`     INTEGER UNSIGNED NOT NULL,
+     `imageId` INTEGER UNSIGNED NOT NULL,
      PRIMARY KEY (`id`),
-     FOREIGN KEY (`placeid`) REFERENCES `places` (`id`) ON DELETE CASCADE ON
+     FOREIGN KEY (`placeId`) REFERENCES `places` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE,
-     FOREIGN KEY (`imageid`) REFERENCES `images` (`id`) ON DELETE CASCADE ON
+     FOREIGN KEY (`imageId`) REFERENCES `images` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE
   )
 engine=innodb; 
