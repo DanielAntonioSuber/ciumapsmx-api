@@ -1,9 +1,8 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 import multer from 'multer'
 import PlaceController from '../controllers/PlaceController'
 import path from 'path'
 import PlaceValidator from '../validators/PlaceValidator'
-import { Place } from '../database/models/Place'
 
 const router = Router()
 const controller = new PlaceController()
@@ -30,21 +29,6 @@ router.post(
 
 router.get('/', controller.getAllPlaces)
 
-router.get('/:id', async (req: Request, res: Response) => {
-  const place = await Place.findByPk(req.params.id)
-  res.json({
-    name: place?.name,
-    description: place?.description,
-    images: await Promise.all(
-      (await place!.getImageOfPlaces()).map(async (img) => {
-        const image = await img.getImage()
-        return {
-          name: image.name,
-          path: image.path
-        }
-      })
-    )
-  })
-})
+router.get('/:id', controller.getPlaceById)
 
 export default router
