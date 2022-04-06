@@ -23,7 +23,10 @@ import { User } from './User'
 
 const ROLE_TABLE = 'roles'
 
-class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
+class Role extends Model<
+  InferAttributes<Role, { omit: 'users' }>,
+  InferCreationAttributes<Role, { omit: 'users' }>
+> {
   declare id: number
   declare name: string
 
@@ -48,7 +51,6 @@ class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
     return {
       sequelize: sequelize,
       tableName: ROLE_TABLE,
-      modelName: 'Role',
       timestamps: false
     }
   }

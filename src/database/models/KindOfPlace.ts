@@ -25,8 +25,8 @@ import { Place } from './Place'
 const KIND_OF_PLACE_TABLE = 'types_of_places'
 
 class KindOfPlace extends Model<
-  InferAttributes<KindOfPlace>,
-  InferCreationAttributes<KindOfPlace>
+  InferAttributes<KindOfPlace, { omit: 'places' }>,
+  InferCreationAttributes<KindOfPlace, { omit: 'places' }>
 > {
   declare id: CreationOptional<number>
   declare name: string
@@ -52,7 +52,6 @@ class KindOfPlace extends Model<
     return {
       sequelize,
       tableName: KIND_OF_PLACE_TABLE,
-      modelName: 'KindOfPlace',
       timestamps: false
     }
   }

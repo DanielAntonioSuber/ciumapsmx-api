@@ -1,4 +1,5 @@
 import {
+  Association,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
@@ -18,8 +19,8 @@ import { User } from './User'
 const PLACE_REVIEW_TABLE = 'place_reviews'
 
 class PlaceReview extends Model<
-InferAttributes<PlaceReview>,
-InferCreationAttributes<PlaceReview>
+  InferAttributes<PlaceReview>,
+  InferCreationAttributes<PlaceReview>
 > {
   declare id: CreationOptional<number>
   declare userId: number
@@ -38,11 +39,15 @@ InferCreationAttributes<PlaceReview>
   declare user?: NonAttribute<User>
   declare place?: NonAttribute<Place>
 
+  public declare static associations: {
+    user: Association<PlaceReview, User>
+    place: Association<PlaceReview, Place>
+  }
+
   static config (sequelize: Sequelize): InitOptions<PlaceReview> {
     return {
       sequelize,
       tableName: PLACE_REVIEW_TABLE,
-      modelName: 'PlaceReview',
       timestamps: false
     }
   }

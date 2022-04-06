@@ -30,7 +30,10 @@ import { PlaceReview } from './PlaceReview'
 
 const USER_TABLE = 'users'
 
-class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+class User extends Model<
+  InferAttributes<User, { omit: 'placeReviews' }>,
+  InferCreationAttributes<User, { omit: 'placeReviews' }>
+> {
   declare id: CreationOptional<number>
   declare roleId: number
   declare username: string
@@ -61,21 +64,25 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare hasPlaceReview: HasManyHasAssociationMixin<PlaceReview, number>
   declare hasPlaceReviews: HasManyHasAssociationsMixin<PlaceReview, number>
   declare countPlaceReviews: HasManyCountAssociationsMixin
-  declare createPlaceReview: HasManyCreateAssociationMixin<PlaceReview, 'placeId'>
+  declare createPlaceReview: HasManyCreateAssociationMixin<
+    PlaceReview,
+    'placeId'
+  >
 
   declare role?: NonAttribute<Role>
   declare image?: NonAttribute<Image>
   declare placeReviews?: NonAttribute<PlaceReview>
 
   declare static associations: {
+    role: Association<User, PlaceReview>
     placeReviews: Association<User, PlaceReview>
+    image: Association<User, Image>
   }
 
   static config (sequelize: Sequelize): InitOptions<User> {
     return {
       sequelize,
-      tableName: USER_TABLE,
-      modelName: 'User'
+      tableName: USER_TABLE
     }
   }
 }

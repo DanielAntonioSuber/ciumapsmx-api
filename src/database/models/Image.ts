@@ -12,6 +12,9 @@ import {
   HasManyRemoveAssociationMixin,
   HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
+  HasOneCreateAssociationMixin,
+  HasOneGetAssociationMixin,
+  HasOneSetAssociationMixin,
   InferAttributes,
   InferCreationAttributes,
   InitOptions,
@@ -27,8 +30,8 @@ import { User } from './User'
 const IMAGE_TABLE = 'images'
 
 class Image extends Model<
-  InferAttributes<Image>,
-  InferCreationAttributes<Image>
+  InferAttributes<Image, { omit: 'users' }>,
+  InferCreationAttributes<Image, { omit: 'users' }>
 > {
   declare id: CreationOptional<number>
   declare name: string
@@ -45,41 +48,22 @@ class Image extends Model<
   declare countUsers: HasManyCountAssociationsMixin
   declare createUser: HasManyCreateAssociationMixin<User, 'avatarImage'>
 
-  declare getImageOfPlaces: HasManyGetAssociationsMixin<ImageOfPlace>
-  declare addImageOfPlace: HasManyAddAssociationMixin<ImageOfPlace, number>
-  declare addImageOfPlaces: HasManyAddAssociationsMixin<ImageOfPlace, number>
-  declare setImageOfPlaces: HasManySetAssociationsMixin<ImageOfPlace, number>
-  declare removeImageOfPlace: HasManyRemoveAssociationMixin<
-    ImageOfPlace,
-    number
-  >
+  declare getImageOfPlace: HasOneGetAssociationMixin<ImageOfPlace>
+  declare setImageOfPlace: HasOneSetAssociationMixin<ImageOfPlace, number>
+  declare createImageOfPlace: HasOneCreateAssociationMixin<ImageOfPlace>
 
-  declare removeImageOfPlaces: HasManyRemoveAssociationsMixin<
-    ImageOfPlace,
-    number
-  >
-
-  declare hasImageOfPlace: HasManyHasAssociationMixin<ImageOfPlace, number>
-  declare hasImageOfPlaces: HasManyHasAssociationsMixin<ImageOfPlace, number>
-  declare countImageOfPlaces: HasManyCountAssociationsMixin
-  declare createImageOfPlace: HasManyCreateAssociationMixin<
-    ImageOfPlace,
-    'imageId'
-  >
-
-  declare users?: NonAttribute<User>
-  declare imageOfPlaces?: NonAttribute<ImageOfPlace[]>
+  declare users?: NonAttribute<User[]>
+  declare imageOfPlace?: NonAttribute<ImageOfPlace>
 
   declare static associations: {
     users: Association<Image, User>
-    imageOfPlaces: Association<Image, ImageOfPlace>
+    imageOfPlace: Association<Image, ImageOfPlace>
   }
 
   static config (sequelize: Sequelize): InitOptions<Image> {
     return {
       sequelize,
       tableName: IMAGE_TABLE,
-      modelName: 'Image',
       timestamps: false
     }
   }

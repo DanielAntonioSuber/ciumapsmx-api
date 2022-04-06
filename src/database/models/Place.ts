@@ -80,22 +80,25 @@ class Place extends Model<
   declare hasPlaceReview: HasManyHasAssociationMixin<PlaceReview, number>
   declare hasPlaceReviews: HasManyHasAssociationsMixin<PlaceReview, number>
   declare countPlaceReviews: HasManyCountAssociationsMixin
-  declare createPlaceReview: HasManyCreateAssociationMixin<PlaceReview, 'placeId'>
+  declare createPlaceReview: HasManyCreateAssociationMixin<
+    PlaceReview,
+    'placeId'
+  >
 
   declare imageOfPlaces?: NonAttribute<ImageOfPlace[]>
   declare placeReviews?: NonAttribute<PlaceReview[]>
-  declare KindOfPlace?: NonAttribute<KindOfPlace>
+  declare kindOfPlace?: NonAttribute<KindOfPlace>
 
   public declare static associations: {
     imageOfPlaces: Association<Place, ImageOfPlace>
     placeReviews: Association<Place, PlaceReview>
+    kindOfPlace: Association<Place, KindOfPlace>
   }
 
   static config (sequelize: Sequelize): InitOptions<Place> {
     return {
       sequelize,
-      tableName: PLACE_TABLE,
-      modelName: 'Place'
+      tableName: PLACE_TABLE
     }
   }
 }

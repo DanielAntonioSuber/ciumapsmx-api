@@ -1,4 +1,5 @@
 import {
+  Association,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
@@ -36,11 +37,15 @@ class ImageOfPlace extends Model<
   declare place?: NonAttribute<Place>
   declare image?: NonAttribute<Image>
 
+  public declare static associations: {
+    image: Association<ImageOfPlace, Image>
+    place: Association<ImageOfPlace, Place>
+  }
+
   static config (sequelize: Sequelize): InitOptions<ImageOfPlace> {
     return {
       sequelize,
       tableName: IMAGE_OF_PLACE_TABLE,
-      modelName: 'ImageOfPlace',
       timestamps: false
     }
   }
