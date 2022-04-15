@@ -21,8 +21,10 @@ class PlaceController {
   }
 
   getPlaceById = async (req: Request, res: Response) => {
-    const place = this.service.getPlaceById(parseInt(req.body.id))
-    res.json(place)
+    if (req.body.id) {
+      const place = this.service.getPlaceById(parseInt(req.body.id))
+      res.json(place)
+    }
   }
 }
 
