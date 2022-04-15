@@ -1,4 +1,5 @@
 import {
+  Association,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
@@ -9,6 +10,7 @@ import {
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import { Place } from './Place'
@@ -17,12 +19,12 @@ import { User } from './User'
 const PLACE_REVIEW_TABLE = 'place_reviews'
 
 class PlaceReview extends Model<
-InferAttributes<PlaceReview>,
-InferCreationAttributes<PlaceReview>
+  InferAttributes<PlaceReview>,
+  InferCreationAttributes<PlaceReview>
 > {
   declare id: CreationOptional<number>
-  declare user: number
-  declare place: number
+  declare userId: number
+  declare placeId: number
   declare starScore: number
   declare securityScore: number
 
@@ -34,11 +36,18 @@ InferCreationAttributes<PlaceReview>
   declare setPlace: BelongsToSetAssociationMixin<Place, number>
   declare createPlace: BelongsToCreateAssociationMixin<Place>
 
+  declare user?: NonAttribute<User>
+  declare place?: NonAttribute<Place>
+
+  public declare static associations: {
+    user: Association<PlaceReview, User>
+    place: Association<PlaceReview, Place>
+  }
+
   static config (sequelize: Sequelize): InitOptions<PlaceReview> {
     return {
       sequelize,
       tableName: PLACE_REVIEW_TABLE,
-      modelName: 'PlaceReview',
       timestamps: false
     }
   }
@@ -49,26 +58,26 @@ const PlaceReviewAttributes: ModelAttributes<
   InferAttributes<PlaceReview>
 > = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
   },
-  user: {
-    type: DataTypes.INTEGER,
+  userId: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
-  place: {
-    type: DataTypes.INTEGER,
+  placeId: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
   starScore: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     defaultValue: 0
   },
   securityScore: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     defaultValue: 0
   }

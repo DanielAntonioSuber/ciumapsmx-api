@@ -1,10 +1,10 @@
 import ImageService from '../services/ImageService'
-import KindOfPlaceService from '../services/KindOfPlaceService'
-import RoleService from '../services/RoleService'
+import PlaceService from '../services/PlaceService'
+import UserService from '../services/UserService'
 
 async function createRoles () {
-  const roleService = new RoleService()
-  await roleService.createRoles()
+  const userService = new UserService()
+  await userService.createRoles()
 }
 
 function createAdmins () {}
@@ -15,7 +15,7 @@ async function createDefaultAvatar () {
 }
 
 async function createTypesOfPlaces () {
-  const kindOfPlaceService = new KindOfPlaceService()
+  const kindOfPlaceService = new PlaceService()
   await kindOfPlaceService.createInitialValues()
 }
 

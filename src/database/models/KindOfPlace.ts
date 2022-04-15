@@ -1,14 +1,23 @@
 import {
-  BelongsToCreateAssociationMixin,
-  BelongsToGetAssociationMixin,
-  BelongsToSetAssociationMixin,
+  Association,
   CreationOptional,
   DataTypes,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
   InferAttributes,
   InferCreationAttributes,
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import { Place } from './Place'
@@ -16,21 +25,33 @@ import { Place } from './Place'
 const KIND_OF_PLACE_TABLE = 'types_of_places'
 
 class KindOfPlace extends Model<
-  InferAttributes<KindOfPlace>,
-  InferCreationAttributes<KindOfPlace>
+  InferAttributes<KindOfPlace, { omit: 'places' }>,
+  InferCreationAttributes<KindOfPlace, { omit: 'places' }>
 > {
   declare id: CreationOptional<number>
   declare name: string
 
-  declare getPlace: BelongsToGetAssociationMixin<Place>
-  declare setPlace: BelongsToSetAssociationMixin<Place, number>
-  declare createPlace: BelongsToCreateAssociationMixin<Place>
+  declare getPlaces: HasManyGetAssociationsMixin<Place>
+  declare addPlace: HasManyAddAssociationMixin<Place, number>
+  declare addPlaces: HasManyAddAssociationsMixin<Place, number>
+  declare setPlaces: HasManySetAssociationsMixin<Place, number>
+  declare removePlace: HasManyRemoveAssociationMixin<Place, number>
+  declare removePlaces: HasManyRemoveAssociationsMixin<Place, number>
+  declare hasPlace: HasManyHasAssociationMixin<Place, number>
+  declare hasPlaces: HasManyHasAssociationsMixin<Place, number>
+  declare countPlaces: HasManyCountAssociationsMixin
+  declare createPlace: HasManyCreateAssociationMixin<Place, 'kind'>
+
+  declare places: NonAttribute<Place>
+
+  declare static associations: {
+    places: Association<KindOfPlace, Place>
+  }
 
   static config (sequelize: Sequelize): InitOptions<KindOfPlace> {
     return {
       sequelize,
       tableName: KIND_OF_PLACE_TABLE,
-      modelName: 'KindOfPlace',
       timestamps: false
     }
   }
@@ -41,17 +62,15 @@ const KindOfPlaceAttributes: ModelAttributes<
   InferAttributes<KindOfPlace>
 > = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
-    field: 'kind_of_place_id',
     allowNull: false
   },
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true,
-    field: 'kind_name'
+    unique: true
   }
 }
 

@@ -1,4 +1,5 @@
 import {
+  Association,
   CreationOptional,
   DataTypes,
   HasManyAddAssociationMixin,
@@ -11,21 +12,26 @@ import {
   HasManyRemoveAssociationMixin,
   HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
+  HasOneCreateAssociationMixin,
+  HasOneGetAssociationMixin,
+  HasOneSetAssociationMixin,
   InferAttributes,
   InferCreationAttributes,
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
+import { APP_URL } from '../../config/app'
 import { ImageOfPlace } from './ImageOfPlace'
 import { User } from './User'
 
 const IMAGE_TABLE = 'images'
 
 class Image extends Model<
-  InferAttributes<Image>,
-  InferCreationAttributes<Image>
+  InferAttributes<Image, { omit: 'users' }>,
+  InferCreationAttributes<Image, { omit: 'users' }>
 > {
   declare id: CreationOptional<number>
   declare name: string
@@ -42,22 +48,22 @@ class Image extends Model<
   declare countUsers: HasManyCountAssociationsMixin
   declare createUser: HasManyCreateAssociationMixin<User, 'avatarImage'>
 
-  declare getImageOfPlaces: HasManyGetAssociationsMixin<ImageOfPlace>;
-  declare addImageOfPlace: HasManyAddAssociationMixin<ImageOfPlace, number>;
-  declare addImageOfPlaces: HasManyAddAssociationsMixin<ImageOfPlace, number>;
-  declare setImageOfPlaces: HasManySetAssociationsMixin<ImageOfPlace, number>;
-  declare removeImageOfPlace: HasManyRemoveAssociationMixin<ImageOfPlace, number>;
-  declare removeImageOfPlaces: HasManyRemoveAssociationsMixin<ImageOfPlace, number>;
-  declare hasImageOfPlace: HasManyHasAssociationMixin<ImageOfPlace, number>;
-  declare hasImageOfPlaces: HasManyHasAssociationsMixin<ImageOfPlace, number>;
-  declare countImageOfPlaces: HasManyCountAssociationsMixin;
-  declare createImageOfPlace: HasManyCreateAssociationMixin<ImageOfPlace, 'placeImage'>;
+  declare getImageOfPlace: HasOneGetAssociationMixin<ImageOfPlace>
+  declare setImageOfPlace: HasOneSetAssociationMixin<ImageOfPlace, number>
+  declare createImageOfPlace: HasOneCreateAssociationMixin<ImageOfPlace>
+
+  declare users?: NonAttribute<User[]>
+  declare imageOfPlace?: NonAttribute<ImageOfPlace>
+
+  declare static associations: {
+    users: Association<Image, User>
+    imageOfPlace: Association<Image, ImageOfPlace>
+  }
 
   static config (sequelize: Sequelize): InitOptions<Image> {
     return {
       sequelize,
       tableName: IMAGE_TABLE,
-      modelName: 'Image',
       timestamps: false
     }
   }
@@ -65,18 +71,26 @@ class Image extends Model<
 
 const ImageAttributes: ModelAttributes<Image, InferAttributes<Image>> = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
-    field: 'image_id',
     autoIncrement: true,
     allowNull: false
   },
   name: {
     type: DataTypes.STRING(50),
-    allowNull: false,
-    field: 'image_name'
+    allowNull: false
   },
-  path: { type: DataTypes.STRING(255), allowNull: false, field: 'image_path' }
+  path: {
+    unique: true,
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    get () {
+      const rawValue = this.getDataValue('path')
+      return rawValue.substring(0, 4) === 'api '
+        ? APP_URL + rawValue.substring(4)
+        : rawValue
+    }
+  }
 }
 
 export { Image, ImageAttributes, IMAGE_TABLE }
