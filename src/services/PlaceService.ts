@@ -45,8 +45,8 @@ class PlaceService {
     return newPlace
   }
 
-  getAllPlaces = async () => {
-    return (
+  getAllPlaces = async () =>
+    (
       await Place.findAll({
         attributes: ['id', 'name', 'description', 'direction'],
         include: [
@@ -69,10 +69,9 @@ class PlaceService {
         ]
       })
     ).map(parsePlace)
-  }
 
-  getPlaceById = async (id: number) => {
-    return parsePlace(
+  getPlaceById = async (id: number) =>
+    parsePlace(
       await Place.findByPk(id, {
         include: [
           {
@@ -91,7 +90,9 @@ class PlaceService {
         ]
       })
     )
-  }
+
+  getPlaceByName = async (name: string) =>
+    await Place.findOne({ where: { name: name } })
 }
 
 function parsePlace (place: Place | null) {
