@@ -46,44 +46,66 @@ class PlaceService {
   }
 
   getAllPlaces = async () => {
-    return await Place.findAll({
-      attributes: ['id', 'name', 'description', 'direction'],
-      include: [
-        {
-          association: Place.associations.imageOfPlaces,
-          attributes: ['id'],
-          required: true,
-          include: {
-            association: ImageOfPlace.associations.image,
-            attributes: ['path', 'name']
+    return (
+      await Place.findAll({
+        attributes: ['id', 'name', 'description', 'direction'],
+        include: [
+          {
+            association: Place.associations.imageOfPlaces,
+            attributes: ['id'],
+            required: true,
+            include: {
+              association: ImageOfPlace.associations.image,
+              attributes: ['path', 'name']
+            }
+          } as any,
+          {
+            association: Place.associations.kindOfPlace,
+            attributes: ['name']
+          },
+          {
+            association: Place.associations.placeReviews
           }
-        } as any,
-        {
-          association: Place.associations.kindOfPlace,
-          attributes: ['name']
-        }
-      ]
-    })
+        ]
+      })
+    ).map(parsePlace)
   }
 
   getPlaceById = async (id: number) => {
-    return await Place.findByPk(id, {
-      include: [
-        {
-          association: Place.associations.imageOfPlaces,
-          attributes: ['id'],
-          required: true,
-          include: {
-            association: ImageOfPlace.associations.image,
-            attributes: ['path', 'name']
+    return parsePlace(
+      await Place.findByPk(id, {
+        include: [
+          {
+            association: Place.associations.imageOfPlaces,
+            attributes: ['id'],
+            required: true,
+            include: {
+              association: ImageOfPlace.associations.image,
+              attributes: ['path', 'name']
+            }
+          } as any,
+          {
+            association: Place.associations.kindOfPlace,
+            attributes: ['name']
           }
-        } as any,
-        {
-          association: Place.associations.kindOfPlace,
-          attributes: ['name']
-        }
-      ]
-    })
+        ]
+      })
+    )
+  }
+}
+
+function parsePlace (place: Place | null) {
+  if (place) {
+    return {
+      id: place.id,
+      name: place.name,
+      description: place.description,
+      direction: place.direction,
+      kind: place.kindOfPlace?.name,
+      images: place.imageOfPlaces?.map((e) => e.image),
+      createdAt: place.createdAt,
+      updatedAt: place.updatedAt
+    }
   }
 }
 
