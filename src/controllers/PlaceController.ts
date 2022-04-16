@@ -21,8 +21,8 @@ class PlaceController {
   }
 
   getPlaceById = async (req: Request, res: Response) => {
-    if (req.body.id) {
-      const place = this.service.getPlaceById(parseInt(req.body.id))
+    if (req.params.id) {
+      const place = await this.service.getPlaceById(parseInt(req.params.id))
       res.json(place)
     }
   }
