@@ -4,21 +4,16 @@ import PlaceService from '../services/PlaceService'
 import validateResult from '../utils/validateResult'
 // TODO: validar el tipo (kind) de acuerdo a la base de datos
 
-// validar si el nombre no está repetido
-
 async function checkDuplicatePlace (
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const placeService = new PlaceService()
-
   const place = await placeService.getPlaceByName(req.body.name)
-
   if (place) {
     return res.status(400).json({ message: 'The place already exist' })
   }
-
   next()
 }
 
