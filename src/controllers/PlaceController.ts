@@ -26,6 +26,8 @@ class PlaceController {
       res.json(place)
     }
   }
+
+  getRecommendedPlaces = async (req: Request, res: Response) => {}
 }
 
 export default PlaceController

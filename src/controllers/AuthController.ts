@@ -21,8 +21,11 @@ class AuthController {
   private service = new UserService()
 
   signUp = async (req: Request, res: Response) => {
-    await this.service.create(req.body)
-    res.status(201).json({ message: 'User was created' })
+    const newUser = await this.service.create(req.body)
+    res.status(201).json({
+      message: 'User was created',
+      token: createToken(newUser)
+    })
   }
 
   signIn = async (req: Request, res: Response) => {
@@ -40,7 +43,6 @@ class AuthController {
       return res.status(200).json({
         token: createToken(user),
         user: {
-          id: user.id,
           username: user.username,
           email: user.email,
           role: (await user.getRole()).name

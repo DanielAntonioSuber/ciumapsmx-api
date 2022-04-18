@@ -26,9 +26,8 @@ router.post(
   [upload.array('imageOfPlace', 5), ...validator.createPlace],
   controller.createPlace
 )
-
 router.get('/', controller.getAllPlaces)
-
+router.get('/recomendations', controller.getRecommendedPlaces)
 router.get('/:id', controller.getPlaceById)
 
 export default router
