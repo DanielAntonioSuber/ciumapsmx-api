@@ -12,7 +12,7 @@ async function checkDuplicatePlace (
   const placeService = new PlaceService()
   const place = await placeService.getPlaceByName(req.body.name)
   if (place) {
-    return res.status(400).json({ message: 'The place already exist' })
+    return res.status(400).json({ message: 'El lugar ya existe' })
   }
   next()
 }

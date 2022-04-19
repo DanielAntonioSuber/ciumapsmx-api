@@ -23,7 +23,7 @@ class AuthController {
   signUp = async (req: Request, res: Response) => {
     const newUser = await this.service.create(req.body)
     res.status(201).json({
-      message: 'User was created',
+      message: 'Usuario creado',
       token: createToken(newUser)
     })
   }
@@ -34,7 +34,7 @@ class AuthController {
     const user = await this.service.findOneByUsernameOrEmail(username, email)
 
     if (!user) {
-      return res.status(400).json({ message: 'The User does not exists' })
+      return res.status(400).json({ message: 'El usuario no existe' })
     }
 
     const isMatch = await comparePassword(password, user.password)
@@ -51,7 +51,7 @@ class AuthController {
     }
 
     return res.status(400).json({
-      message: 'The email or password are incorrect'
+      message: 'El correo o la contraseña son incorrectos'
     })
   }
 }
