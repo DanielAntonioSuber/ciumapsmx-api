@@ -23,6 +23,7 @@ import {
   NonAttribute,
   Sequelize
 } from 'sequelize'
+import { Comment } from './Comment'
 import { ImageOfPlace } from './ImageOfPlace'
 import { KindOfPlace } from './KindOfPlace'
 import { PlaceReview } from './PlaceReview'
@@ -85,14 +86,27 @@ class Place extends Model<
     'placeId'
   >
 
+  declare getComments: HasManyGetAssociationsMixin<Comment>
+  declare addComment: HasManyAddAssociationMixin<Comment, number>
+  declare addComments: HasManyAddAssociationsMixin<Comment, number>
+  declare setComments: HasManySetAssociationsMixin<Comment, number>
+  declare removeComment: HasManyRemoveAssociationMixin<Comment, number>
+  declare removeComments: HasManyRemoveAssociationsMixin<Comment, number>
+  declare hasComment: HasManyHasAssociationMixin<Comment, number>
+  declare hasComments: HasManyHasAssociationsMixin<Comment, number>
+  declare countComments: HasManyCountAssociationsMixin
+  declare createComment: HasManyCreateAssociationMixin<Comment, 'placeId'>
+
   declare imageOfPlaces?: NonAttribute<ImageOfPlace[]>
   declare placeReviews?: NonAttribute<PlaceReview[]>
   declare kindOfPlace?: NonAttribute<KindOfPlace>
+  declare comments?: NonAttribute<Comment>
 
   public declare static associations: {
     imageOfPlaces: Association<Place, ImageOfPlace>
     placeReviews: Association<Place, PlaceReview>
     kindOfPlace: Association<Place, KindOfPlace>
+    comments: Association<Place, Comment>
   }
 
   static config (sequelize: Sequelize): InitOptions<Place> {

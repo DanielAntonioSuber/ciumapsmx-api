@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize'
+import { Comment, CommentAttributes } from './models/Comment'
 import { Image, ImageAttributes } from './models/Image'
 import { ImageOfPlace, ImageOfPlaceAttributes } from './models/ImageOfPlace'
 import { KindOfPlace, KindOfPlaceAttributes } from './models/KindOfPlace'
@@ -15,6 +16,7 @@ function setupModels (sequelize: Sequelize) {
   ImageOfPlace.init(ImageOfPlaceAttributes, ImageOfPlace.config(sequelize))
   KindOfPlace.init(KindOfPlaceAttributes, KindOfPlace.config(sequelize))
   Place.init(PlaceAttributes, Place.config(sequelize))
+  Comment.init(CommentAttributes, Comment.config(sequelize))
 
   Role.hasMany(User, {
     foreignKey: 'roleId',
@@ -60,6 +62,9 @@ function setupModels (sequelize: Sequelize) {
     as: 'imageOfPlaces'
   })
   ImageOfPlace.belongsTo(Place, { foreignKey: 'placeId', as: 'place' })
+
+  Place.hasMany(Comment, { foreignKey: 'placeId', as: 'comments' })
+  Comment.belongsTo(Place, { foreignKey: 'placeId', as: 'place' })
 }
 
 export default setupModels

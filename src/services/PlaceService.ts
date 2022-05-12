@@ -52,13 +52,14 @@ class PlaceService {
         include: [
           {
             association: Place.associations.imageOfPlaces,
-            attributes: ['id'],
-            required: true,
+            attributes: ['id', 'imageId'],
+            separate: true,
+            limit: 1,
             include: {
               association: ImageOfPlace.associations.image,
               attributes: ['path', 'name']
-            }
-          } as any,
+            } as any
+          },
           {
             association: Place.associations.kindOfPlace,
             attributes: ['name']
