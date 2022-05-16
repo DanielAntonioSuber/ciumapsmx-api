@@ -67,7 +67,7 @@ class PlaceService {
             attributes: ['name']
           },
           {
-            association: Place.associations.placeReviews
+            association: Place.associations.PlaceScores
           }
         ]
       })
