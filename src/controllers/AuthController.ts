@@ -45,7 +45,8 @@ class AuthController {
         user: {
           username: user.username,
           email: user.email,
-          role: (await user.getRole()).name
+          role: (await user.getRole()).name,
+          image: user.image
         }
       })
     }

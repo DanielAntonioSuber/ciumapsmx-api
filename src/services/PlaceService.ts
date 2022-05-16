@@ -1,7 +1,9 @@
+import { Comment } from '../database/models/Comment'
 import { Image } from '../database/models/Image'
 import { ImageOfPlace } from '../database/models/ImageOfPlace'
 import { KindOfPlace } from '../database/models/KindOfPlace'
 import { Place } from '../database/models/Place'
+import { User } from '../database/models/User'
 
 type createPlaceProps = {
   name: string
@@ -69,10 +71,10 @@ class PlaceService {
           }
         ]
       })
-    ).map(parsePlace)
+    ).map(adapaterPlace)
 
   getPlaceById = async (id: number) =>
-    parsePlace(
+    adapaterPlace(
       await Place.findByPk(id, {
         include: [
           {
@@ -94,9 +96,45 @@ class PlaceService {
 
   getPlaceByName = async (name: string) =>
     await Place.findOne({ where: { name: name } })
+
+  commentPlace = async (placeId: string, userId: string, text: string) => {
+    const place = await Place.findByPk(placeId)
+    const user = await User.findByPk(userId)
+    const comment = await place!.createComment({
+      text,
+      userId: user?.id!
+    })
+    return Comment.findByPk(comment.id, {
+      attributes: ['id', 'text', ['updatedAt', 'date']],
+      include: {
+        attributes: ['username'],
+        association: Comment.associations.user,
+        include: {
+          attributes: ['path', 'name'],
+          association: User.associations.image
+        } as any
+      }
+    })
+  }
+
+  getPlaceComments = async (placeId: string) => {
+    const place = await Place.findByPk(placeId)
+    const comments = await place?.getComments({
+      attributes: ['id', 'text', ['updatedAt', 'date']],
+      include: {
+        attributes: ['username'],
+        association: Comment.associations.user,
+        include: {
+          attributes: ['path', 'name'],
+          association: User.associations.image
+        } as any
+      }
+    })
+    return comments
+  }
 }
 
-function parsePlace (place: Place | null) {
+function adapaterPlace (place: Place | null) {
   if (place) {
     return {
       id: place.id,

@@ -1,5 +1,7 @@
 import { Request, Response, Express } from 'express'
 import PlaceService from '../services/PlaceService'
+import jwt from 'jsonwebtoken'
+import { JWT_SECRET } from '../config/app'
 
 class PlaceController {
   service = new PlaceService()
@@ -23,8 +25,26 @@ class PlaceController {
   getPlaceById = async (req: Request, res: Response) => {
     if (req.params.id) {
       const place = await this.service.getPlaceById(parseInt(req.params.id))
-      res.json(place)
+      res.status(200).json(place)
     }
+  }
+
+  commentPlace = async (req: Request, res: Response) => {
+    const { id } = jwt.verify(
+      req.headers.authorization!.split(' ')[1],
+      JWT_SECRET
+    ) as { id: string }
+    if (req.params.id) {
+      const { text } = req.body
+      const comment = await this.service.commentPlace(req.params.id, id, text)
+      res.status(201).json(comment)
+    }
+  }
+
+  getCommentsFromPlace = async (req: Request, res: Response) => {
+    const placeId = req.params.id
+    const comments = await this.service.getPlaceComments(placeId)
+    res.status(200).json(comments)
   }
 
   getRecommendedPlaces = async (req: Request, res: Response) => {}

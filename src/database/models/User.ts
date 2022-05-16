@@ -27,6 +27,7 @@ import bcrypt from 'bcrypt'
 import { Role } from './Role'
 import { Image } from './Image'
 import { PlaceReview } from './PlaceReview'
+import { Comment } from './Comment'
 
 const USER_TABLE = 'users'
 
@@ -69,14 +70,27 @@ class User extends Model<
     'placeId'
   >
 
+  declare getComments: HasManyGetAssociationsMixin<Comment>
+  declare addComment: HasManyAddAssociationMixin<Comment, number>
+  declare addComments: HasManyAddAssociationsMixin<Comment, number>
+  declare setComments: HasManySetAssociationsMixin<Comment, number>
+  declare removeComment: HasManyRemoveAssociationMixin<Comment, number>
+  declare removeComments: HasManyRemoveAssociationsMixin<Comment, number>
+  declare hasComment: HasManyHasAssociationMixin<Comment, number>
+  declare hasComments: HasManyHasAssociationsMixin<Comment, number>
+  declare countComments: HasManyCountAssociationsMixin
+  declare createComment: HasManyCreateAssociationMixin<Comment, 'userId'>
+
   declare role?: NonAttribute<Role>
   declare image?: NonAttribute<Image>
   declare placeReviews?: NonAttribute<PlaceReview>
+  declare comments?: NonAttribute<Comment>
 
   declare static associations: {
     role: Association<User, PlaceReview>
     placeReviews: Association<User, PlaceReview>
     image: Association<User, Image>
+    comments: Association<User, Comment>
   }
 
   static config (sequelize: Sequelize): InitOptions<User> {

@@ -63,7 +63,13 @@ class UserService {
   }
 
   async findOneByUsernameOrEmail (username: string, email: string) {
-    return await User.findOne({ where: { [Op.or]: [{ username }, { email }] } })
+    return await User.findOne({
+      where: { [Op.or]: [{ username }, { email }] },
+      include: {
+        attributes: ['path', 'name'],
+        association: User.associations.image
+      }
+    })
   }
 }
 
