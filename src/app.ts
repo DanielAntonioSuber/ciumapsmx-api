@@ -25,7 +25,7 @@ passport.use(passportMiddleware)
 
 // Routes
 app.use('/api/v1', routerApi)
-app.use('/images', express.static(path.resolve('public/images')))
+app.use('/public/images', express.static(path.resolve('public/images')))
 app.use(serveStatic(path.resolve('uploads')))
 
 export default app
