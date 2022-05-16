@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `places`
   )
 engine=innodb;
 
-CREATE TABLE IF NOT EXISTS `place_reviews`
+CREATE TABLE IF NOT EXISTS `place_scores`
   (
      `id`            INTEGER UNSIGNED NOT NULL auto_increment,
      `userId`        INTEGER UNSIGNED NOT NULL,

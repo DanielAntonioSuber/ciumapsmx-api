@@ -26,14 +26,14 @@ import {
 import bcrypt from 'bcrypt'
 import { Role } from './Role'
 import { Image } from './Image'
-import { PlaceReview } from './PlaceReview'
+import { PlaceScore } from './PlaceScore'
 import { Comment } from './Comment'
 
 const USER_TABLE = 'users'
 
 class User extends Model<
-  InferAttributes<User, { omit: 'placeReviews' }>,
-  InferCreationAttributes<User, { omit: 'placeReviews' }>
+  InferAttributes<User>,
+  InferCreationAttributes<User>
 > {
   declare id: CreationOptional<number>
   declare roleId: number
@@ -52,21 +52,21 @@ class User extends Model<
   declare setImage: BelongsToSetAssociationMixin<Image, number>
   declare createImage: BelongsToCreateAssociationMixin<Image>
 
-  declare getPlaceReviews: HasManyGetAssociationsMixin<PlaceReview>
-  declare addPlaceReview: HasManyAddAssociationMixin<PlaceReview, number>
-  declare addPlaceReviews: HasManyAddAssociationsMixin<PlaceReview, number>
-  declare setPlaceReviews: HasManySetAssociationsMixin<PlaceReview, number>
-  declare removePlaceReview: HasManyRemoveAssociationMixin<PlaceReview, number>
-  declare removePlaceReviews: HasManyRemoveAssociationsMixin<
-    PlaceReview,
+  declare getPlaceScores: HasManyGetAssociationsMixin<PlaceScore>
+  declare addPlaceScore: HasManyAddAssociationMixin<PlaceScore, number>
+  declare addPlaceScores: HasManyAddAssociationsMixin<PlaceScore, number>
+  declare setPlaceScores: HasManySetAssociationsMixin<PlaceScore, number>
+  declare removePlaceScore: HasManyRemoveAssociationMixin<PlaceScore, number>
+  declare removePlaceScores: HasManyRemoveAssociationsMixin<
+  PlaceScore,
     number
   >
 
-  declare hasPlaceReview: HasManyHasAssociationMixin<PlaceReview, number>
-  declare hasPlaceReviews: HasManyHasAssociationsMixin<PlaceReview, number>
-  declare countPlaceReviews: HasManyCountAssociationsMixin
-  declare createPlaceReview: HasManyCreateAssociationMixin<
-    PlaceReview,
+  declare hasPlaceScore: HasManyHasAssociationMixin<PlaceScore, number>
+  declare hasPlaceScores: HasManyHasAssociationsMixin<PlaceScore, number>
+  declare countPlaceScores: HasManyCountAssociationsMixin
+  declare createPlaceScore: HasManyCreateAssociationMixin<
+  PlaceScore,
     'placeId'
   >
 
@@ -83,12 +83,12 @@ class User extends Model<
 
   declare role?: NonAttribute<Role>
   declare image?: NonAttribute<Image>
-  declare placeReviews?: NonAttribute<PlaceReview>
+  declare PlaceScores?: NonAttribute<PlaceScore>
   declare comments?: NonAttribute<Comment>
 
   declare static associations: {
-    role: Association<User, PlaceReview>
-    placeReviews: Association<User, PlaceReview>
+    role: Association<User, PlaceScore>
+    placeScores: Association<User, PlaceScore>
     image: Association<User, Image>
     comments: Association<User, Comment>
   }

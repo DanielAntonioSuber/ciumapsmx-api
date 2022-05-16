@@ -16,11 +16,11 @@ import {
 import { Place } from './Place'
 import { User } from './User'
 
-const PLACE_REVIEW_TABLE = 'place_reviews'
+const PLACE_SCORE_TABLE = 'place_scores'
 
-class PlaceReview extends Model<
-  InferAttributes<PlaceReview>,
-  InferCreationAttributes<PlaceReview>
+class PlaceScore extends Model<
+  InferAttributes<PlaceScore>,
+  InferCreationAttributes<PlaceScore>
 > {
   declare id: CreationOptional<number>
   declare userId: number
@@ -40,22 +40,22 @@ class PlaceReview extends Model<
   declare place?: NonAttribute<Place>
 
   public declare static associations: {
-    user: Association<PlaceReview, User>
-    place: Association<PlaceReview, Place>
+    user: Association<PlaceScore, User>
+    place: Association<PlaceScore, Place>
   }
 
-  static config (sequelize: Sequelize): InitOptions<PlaceReview> {
+  static config (sequelize: Sequelize): InitOptions<PlaceScore> {
     return {
       sequelize,
-      tableName: PLACE_REVIEW_TABLE,
+      tableName: PLACE_SCORE_TABLE,
       timestamps: false
     }
   }
 }
 
-const PlaceReviewAttributes: ModelAttributes<
-  PlaceReview,
-  InferAttributes<PlaceReview>
+const PlaceScoreAttributes: ModelAttributes<
+PlaceScore,
+  InferAttributes<PlaceScore>
 > = {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
@@ -83,4 +83,4 @@ const PlaceReviewAttributes: ModelAttributes<
   }
 }
 
-export { PlaceReview, PlaceReviewAttributes }
+export { PlaceScore, PlaceScoreAttributes }

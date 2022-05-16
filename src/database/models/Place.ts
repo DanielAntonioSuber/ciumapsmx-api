@@ -26,7 +26,7 @@ import {
 import { Comment } from './Comment'
 import { ImageOfPlace } from './ImageOfPlace'
 import { KindOfPlace } from './KindOfPlace'
-import { PlaceReview } from './PlaceReview'
+import { PlaceScore } from './PlaceScore'
 
 const PLACE_TABLE = 'places'
 
@@ -68,21 +68,21 @@ class Place extends Model<
   declare setKindOfPlace: BelongsToSetAssociationMixin<KindOfPlace, number>
   declare createKindOfPlace: BelongsToCreateAssociationMixin<KindOfPlace>
 
-  declare getPlaceReviews: HasManyGetAssociationsMixin<PlaceReview>
-  declare addPlaceReview: HasManyAddAssociationMixin<PlaceReview, number>
-  declare addPlaceReviews: HasManyAddAssociationsMixin<PlaceReview, number>
-  declare setPlaceReviews: HasManySetAssociationsMixin<PlaceReview, number>
-  declare removePlaceReview: HasManyRemoveAssociationMixin<PlaceReview, number>
-  declare removePlaceReviews: HasManyRemoveAssociationsMixin<
-    PlaceReview,
+  declare getPlaceScores: HasManyGetAssociationsMixin<PlaceScore>
+  declare addPlaceScore: HasManyAddAssociationMixin<PlaceScore, number>
+  declare addPlaceScores: HasManyAddAssociationsMixin<PlaceScore, number>
+  declare setPlaceScores: HasManySetAssociationsMixin<PlaceScore, number>
+  declare removePlaceScore: HasManyRemoveAssociationMixin<PlaceScore, number>
+  declare removePlaceScores: HasManyRemoveAssociationsMixin<
+    PlaceScore,
     number
   >
 
-  declare hasPlaceReview: HasManyHasAssociationMixin<PlaceReview, number>
-  declare hasPlaceReviews: HasManyHasAssociationsMixin<PlaceReview, number>
-  declare countPlaceReviews: HasManyCountAssociationsMixin
-  declare createPlaceReview: HasManyCreateAssociationMixin<
-    PlaceReview,
+  declare hasPlaceScore: HasManyHasAssociationMixin<PlaceScore, number>
+  declare hasPlaceScores: HasManyHasAssociationsMixin<PlaceScore, number>
+  declare countPlaceScores: HasManyCountAssociationsMixin
+  declare createPlaceScore: HasManyCreateAssociationMixin<
+    PlaceScore,
     'placeId'
   >
 
@@ -98,13 +98,13 @@ class Place extends Model<
   declare createComment: HasManyCreateAssociationMixin<Comment, 'placeId'>
 
   declare imageOfPlaces?: NonAttribute<ImageOfPlace[]>
-  declare placeReviews?: NonAttribute<PlaceReview[]>
+  declare PlaceScores?: NonAttribute<PlaceScore[]>
   declare kindOfPlace?: NonAttribute<KindOfPlace>
   declare comments?: NonAttribute<Comment>
 
   public declare static associations: {
     imageOfPlaces: Association<Place, ImageOfPlace>
-    placeReviews: Association<Place, PlaceReview>
+    PlaceScores: Association<Place, PlaceScore>
     kindOfPlace: Association<Place, KindOfPlace>
     comments: Association<Place, Comment>
   }

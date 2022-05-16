@@ -4,7 +4,7 @@ import { Image, ImageAttributes } from './models/Image'
 import { ImageOfPlace, ImageOfPlaceAttributes } from './models/ImageOfPlace'
 import { KindOfPlace, KindOfPlaceAttributes } from './models/KindOfPlace'
 import { Place, PlaceAttributes } from './models/Place'
-import { PlaceReview, PlaceReviewAttributes } from './models/PlaceReview'
+import { PlaceScore, PlaceScoreAttributes } from './models/PlaceScore'
 import { Role, RoleAttributes } from './models/Role'
 import { User, UserAttributes } from './models/User'
 
@@ -12,7 +12,7 @@ function setupModels (sequelize: Sequelize) {
   User.init(UserAttributes, User.config(sequelize))
   Role.init(RoleAttributes, Role.config(sequelize))
   Image.init(ImageAttributes, Image.config(sequelize))
-  PlaceReview.init(PlaceReviewAttributes, PlaceReview.config(sequelize))
+  PlaceScore.init(PlaceScoreAttributes, PlaceScore.config(sequelize))
   ImageOfPlace.init(ImageOfPlaceAttributes, ImageOfPlace.config(sequelize))
   KindOfPlace.init(KindOfPlaceAttributes, KindOfPlace.config(sequelize))
   Place.init(PlaceAttributes, Place.config(sequelize))
@@ -30,17 +30,17 @@ function setupModels (sequelize: Sequelize) {
   })
   User.belongsTo(Image, { foreignKey: 'avatarImage', as: 'image' })
 
-  User.hasMany(PlaceReview, {
+  User.hasMany(PlaceScore, {
     foreignKey: 'userId',
-    as: 'placeReviews'
+    as: 'PlaceScores'
   })
-  PlaceReview.belongsTo(User, { foreignKey: 'userId' })
+  PlaceScore.belongsTo(User, { foreignKey: 'userId' })
 
-  Place.hasMany(PlaceReview, {
+  Place.hasMany(PlaceScore, {
     foreignKey: 'placeId',
-    as: 'placeReviews'
+    as: 'PlaceScores'
   })
-  PlaceReview.belongsTo(Place, { foreignKey: 'placeId' })
+  PlaceScore.belongsTo(Place, { foreignKey: 'placeId' })
 
   KindOfPlace.hasMany(Place, {
     foreignKey: 'kind',
