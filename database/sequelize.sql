@@ -88,4 +88,20 @@ CREATE TABLE IF NOT EXISTS `images_of_places`
      FOREIGN KEY (`imageId`) REFERENCES `images` (`id`) ON DELETE CASCADE ON
      UPDATE CASCADE
   )
+engine=innodb;
+
+CREATE TABLE IF NOT EXISTS `comments`
+  (
+     `id`        INTEGER UNSIGNED NOT NULL auto_increment,
+     `userId`    INTEGER UNSIGNED NOT NULL,
+     `placeId`   INTEGER UNSIGNED NOT NULL,
+     `text`      TEXT,
+     `createdAt` DATETIME,
+     `updatedAt` DATETIME,
+     PRIMARY KEY (`id`),
+     FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON
+     UPDATE CASCADE,
+     FOREIGN KEY (`placeId`) REFERENCES `places` (`id`) ON DELETE CASCADE ON
+     UPDATE CASCADE
+  )
 engine=innodb; 
