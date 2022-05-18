@@ -54,7 +54,7 @@ class PlaceScore extends Model<
 }
 
 const PlaceScoreAttributes: ModelAttributes<
-PlaceScore,
+  PlaceScore,
   InferAttributes<PlaceScore>
 > = {
   id: {
@@ -65,7 +65,8 @@ PlaceScore,
   },
   userId: {
     type: DataTypes.INTEGER.UNSIGNED,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   placeId: {
     type: DataTypes.INTEGER.UNSIGNED,
