@@ -27,7 +27,7 @@ router.post(
   controller.createPlace
 )
 router.post('/:id/comments/', controller.commentPlace)
-router.post('/:id/scores/')
+router.post('/:id/scores/', controller.ratePlace)
 router.get('/', controller.getAllPlaces)
 router.get('/recomendations', controller.getRecommendedPlaces)
 router.get('/:id/comments/', controller.getCommentsFromPlace)

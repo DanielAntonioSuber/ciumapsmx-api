@@ -132,6 +132,20 @@ class PlaceService {
     })
     return comments
   }
+
+  ratePlace = async (
+    placeId: string,
+    userId: number,
+    securityScore: number,
+    starScore: number
+  ) => {
+    const place = await Place.findByPk(placeId)
+    return await place?.createPlaceScore({
+      securityScore,
+      starScore,
+      userId
+    })
+  }
 }
 
 function adapaterPlace (place: Place | null) {

@@ -30,14 +30,29 @@ class PlaceController {
   }
 
   commentPlace = async (req: Request, res: Response) => {
+    const { text } = req.body
     const { id } = jwt.verify(
       req.headers.authorization!.split(' ')[1],
       JWT_SECRET
     ) as { id: string }
-    if (req.params.id) {
-      const { text } = req.body
+    const placeId = req.params.id
+
+    if (placeId) {
       const comment = await this.service.commentPlace(req.params.id, id, text)
       res.status(201).json(comment)
+    }
+  }
+
+  ratePlace = async (req: Request, res: Response) => {
+    const { starsScore, securityScore } = req.body
+    const { id } = jwt.verify(
+      req.headers.authorization!.split(' ')[1],
+      JWT_SECRET
+    ) as { id: string }
+    const placeId = req.params.id
+
+    if (placeId) {
+      this.service.ratePlace(placeId, parseInt(id), securityScore, starsScore)
     }
   }
 
