@@ -70,6 +70,8 @@ class PlaceService {
           {
             association: Place.associations.imageOfPlaces,
             attributes: ['id', 'imageId'],
+            limit: 1,
+            separate: true,
             include: {
               association: ImageOfPlace.associations.image,
               attributes: ['path', 'name']
@@ -109,6 +111,7 @@ class PlaceService {
           {
             association: Place.associations.imageOfPlaces,
             attributes: ['id', 'imageId'],
+            separate: true,
             include: {
               association: ImageOfPlace.associations.image,
               attributes: ['path', 'name']
@@ -223,8 +226,8 @@ function adapaterPlace (place: Place | null) {
       description: place.description,
       direction: place.direction,
       kind: place.kindOfPlace?.name,
-      starRating: place.get('starRating'),
-      securityRating: place.get('securityRating'),
+      starRating: parseFloat(place.get('starRating') as string),
+      securityRating: parseFloat(place.get('securityRating') as string),
       images: place.imageOfPlaces?.map((e) => e.image),
       createdAt: place.createdAt,
       updatedAt: place.updatedAt

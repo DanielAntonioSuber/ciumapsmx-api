@@ -1,3 +1,4 @@
+import { User } from '../database/models/User'
 import ImageService from '../services/ImageService'
 import PlaceService from '../services/PlaceService'
 import UserService from '../services/UserService'
@@ -7,7 +8,31 @@ async function createRoles () {
   await userService.createRoles()
 }
 
-function createAdmins () {}
+async function createAdmins () {
+  const imageService = new ImageService()
+  const userService = new UserService()
+  User.findOrCreate({
+    where: { username: 'admin1' },
+    defaults: {
+      avatarImage: (await imageService.getDefaultAvatar())!.id,
+      email: 'admin1@email.com',
+      password: 'adminpassword',
+      roleId: userService.getRoles().find((e) => e.name === 'admin')!.id,
+      username: 'admin1'
+    }
+  })
+
+  User.findOrCreate({
+    where: { username: 'admin2' },
+    defaults: {
+      avatarImage: (await imageService.getDefaultAvatar())!.id,
+      email: 'admin2@email.com',
+      password: 'adminpassword',
+      roleId: userService.getRoles().find((e) => e.name === 'admin')!.id,
+      username: 'admin2'
+    }
+  })
+}
 
 async function createDefaultAvatar () {
   const imageService = new ImageService()
@@ -21,9 +46,9 @@ async function createTypesOfPlaces () {
 
 async function initialSetup () {
   await createRoles()
-  createAdmins()
-  createDefaultAvatar()
-  createTypesOfPlaces()
+  await createDefaultAvatar()
+  await createTypesOfPlaces()
+  await createAdmins()
 }
 
 export default initialSetup

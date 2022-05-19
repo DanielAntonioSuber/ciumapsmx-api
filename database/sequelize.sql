@@ -105,3 +105,5 @@ CREATE TABLE IF NOT EXISTS `comments`
      UPDATE CASCADE
   )
 engine=innodb; 
+
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
