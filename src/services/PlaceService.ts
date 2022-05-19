@@ -1,3 +1,4 @@
+import { Sequelize } from 'sequelize'
 import { Comment } from '../database/models/Comment'
 import { Image } from '../database/models/Image'
 import { ImageOfPlace } from '../database/models/ImageOfPlace'
@@ -51,13 +52,24 @@ class PlaceService {
   getAllPlaces = async () =>
     (
       await Place.findAll({
-        attributes: ['id', 'name', 'description', 'direction'],
+        attributes: [
+          'id',
+          'name',
+          'description',
+          'direction',
+          [
+            Sequelize.fn('AVG', Sequelize.col('placeScores.starScore')),
+            'starRating'
+          ],
+          [
+            Sequelize.fn('AVG', Sequelize.col('placeScores.securityScore')),
+            'securityRating'
+          ]
+        ],
         include: [
           {
             association: Place.associations.imageOfPlaces,
             attributes: ['id', 'imageId'],
-            separate: true,
-            limit: 1,
             include: {
               association: ImageOfPlace.associations.image,
               attributes: ['path', 'name']
@@ -68,30 +80,50 @@ class PlaceService {
             attributes: ['name']
           },
           {
-            association: Place.associations.PlaceScores
+            association: Place.associations.placeScores,
+            attributes: []
           }
-        ]
+        ],
+        group: ['Place.id']
       })
     ).map(adapaterPlace)
 
   getPlaceById = async (id: number) =>
     adapaterPlace(
       await Place.findByPk(id, {
+        attributes: [
+          'id',
+          'name',
+          'description',
+          'direction',
+          [
+            Sequelize.fn('AVG', Sequelize.col('placeScores.starScore')),
+            'starRating'
+          ],
+          [
+            Sequelize.fn('AVG', Sequelize.col('placeScores.securityScore')),
+            'securityRating'
+          ]
+        ],
         include: [
           {
             association: Place.associations.imageOfPlaces,
-            attributes: ['id'],
-            required: true,
+            attributes: ['id', 'imageId'],
             include: {
               association: ImageOfPlace.associations.image,
               attributes: ['path', 'name']
-            }
-          } as any,
+            } as any
+          },
           {
             association: Place.associations.kindOfPlace,
             attributes: ['name']
+          },
+          {
+            association: Place.associations.placeScores,
+            attributes: []
           }
-        ]
+        ],
+        group: ['Place.id']
       })
     )
 
@@ -135,18 +167,44 @@ class PlaceService {
   }
 
   ratePlace = async (
-    placeId: string,
+    placeId: number,
     userId: number,
     securityScore: number,
     starScore: number
   ) => {
-    const place = await Place.findByPk(placeId)
-    const scores = await place?.createPlaceScore({
-      securityScore,
-      starScore,
-      userId
+    const [placeScore, created] = await PlaceScore.findOrCreate({
+      where: { userId, placeId },
+      defaults: {
+        securityScore,
+        starScore,
+        placeId,
+        userId
+      }
     })
-    return { id: scores?.id, securityScore, starScore }
+    return created
+      ? { id: placeScore?.id, securityScore, starScore }
+      : {
+          id: placeScore.id,
+          securityScore: placeScore.securityScore,
+          starScore: placeScore.starScore
+        }
+  }
+
+  updateRatePlace = async (
+    placeScoreId: string,
+    securityScore: number,
+    starScore: number
+  ) => {
+    const placeScore = await PlaceScore.findByPk(placeScoreId)
+    const updatedPlaceScore = await placeScore?.update({
+      securityScore,
+      starScore
+    })
+    return {
+      id: updatedPlaceScore?.id,
+      securityScore: updatedPlaceScore?.securityScore,
+      starScore: updatedPlaceScore?.starScore
+    }
   }
 
   getScorePlace = async (userId: number, placeId: number) => {
@@ -165,6 +223,8 @@ function adapaterPlace (place: Place | null) {
       description: place.description,
       direction: place.direction,
       kind: place.kindOfPlace?.name,
+      starRating: place.get('starRating'),
+      securityRating: place.get('securityRating'),
       images: place.imageOfPlaces?.map((e) => e.image),
       createdAt: place.createdAt,
       updatedAt: place.updatedAt
