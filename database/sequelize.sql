@@ -65,7 +65,7 @@ engine=innodb;
 CREATE TABLE IF NOT EXISTS `place_scores`
   (
      `id`            INTEGER UNSIGNED NOT NULL auto_increment,
-     `userId`        INTEGER UNSIGNED NOT NULL UNIQUE,
+     `userId`        INTEGER UNSIGNED NOT NULL,
      `placeId`       INTEGER UNSIGNED NOT NULL,
      `starScore`     INTEGER UNSIGNED NOT NULL DEFAULT 0,
      `securityScore` INTEGER UNSIGNED NOT NULL DEFAULT 0,

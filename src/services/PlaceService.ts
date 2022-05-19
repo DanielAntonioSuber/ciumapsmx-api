@@ -3,6 +3,7 @@ import { Image } from '../database/models/Image'
 import { ImageOfPlace } from '../database/models/ImageOfPlace'
 import { KindOfPlace } from '../database/models/KindOfPlace'
 import { Place } from '../database/models/Place'
+import { PlaceScore } from '../database/models/PlaceScore'
 import { User } from '../database/models/User'
 
 type createPlaceProps = {
@@ -140,10 +141,18 @@ class PlaceService {
     starScore: number
   ) => {
     const place = await Place.findByPk(placeId)
-    return await place?.createPlaceScore({
+    const scores = await place?.createPlaceScore({
       securityScore,
       starScore,
       userId
+    })
+    return { id: scores?.id, securityScore, starScore }
+  }
+
+  getScorePlace = async (userId: number, placeId: number) => {
+    return await PlaceScore.findOne({
+      where: { userId: userId, placeId: placeId },
+      attributes: ['id', 'securityScore', 'starScore']
     })
   }
 }
