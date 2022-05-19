@@ -98,13 +98,13 @@ class Place extends Model<
   declare createComment: HasManyCreateAssociationMixin<Comment, 'placeId'>
 
   declare imageOfPlaces?: NonAttribute<ImageOfPlace[]>
-  declare PlaceScores?: NonAttribute<PlaceScore[]>
+  declare placeScores?: NonAttribute<PlaceScore[]>
   declare kindOfPlace?: NonAttribute<KindOfPlace>
   declare comments?: NonAttribute<Comment>
 
   public declare static associations: {
     imageOfPlaces: Association<Place, ImageOfPlace>
-    PlaceScores: Association<Place, PlaceScore>
+    placeScores: Association<Place, PlaceScore>
     kindOfPlace: Association<Place, KindOfPlace>
     comments: Association<Place, Comment>
   }

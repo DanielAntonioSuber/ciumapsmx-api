@@ -32,13 +32,13 @@ function setupModels (sequelize: Sequelize) {
 
   User.hasMany(PlaceScore, {
     foreignKey: 'userId',
-    as: 'PlaceScores'
+    as: 'placeScores'
   })
   PlaceScore.belongsTo(User, { foreignKey: 'userId' })
 
   Place.hasMany(PlaceScore, {
     foreignKey: 'placeId',
-    as: 'PlaceScores'
+    as: 'placeScores'
   })
   PlaceScore.belongsTo(Place, { foreignKey: 'placeId' })
 
