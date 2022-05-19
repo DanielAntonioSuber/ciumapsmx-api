@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize'
+import { Op, Sequelize } from 'sequelize'
 import { Comment } from '../database/models/Comment'
 import { Image } from '../database/models/Image'
 import { ImageOfPlace } from '../database/models/ImageOfPlace'
@@ -87,6 +87,50 @@ class PlaceService {
           }
         ],
         group: ['Place.id']
+      })
+    ).map(adapaterPlace)
+
+  getPlacesByQuery = async (query: string) =>
+    (
+      await Place.findAll({
+        attributes: [
+          'id',
+          'name',
+          'description',
+          'direction',
+          [
+            Sequelize.fn('AVG', Sequelize.col('placeScores.starScore')),
+            'starRating'
+          ],
+          [
+            Sequelize.fn('AVG', Sequelize.col('placeScores.securityScore')),
+            'securityRating'
+          ]
+        ],
+        include: [
+          {
+            association: Place.associations.imageOfPlaces,
+            attributes: ['id', 'imageId'],
+            limit: 1,
+            separate: true,
+            include: {
+              association: ImageOfPlace.associations.image,
+              attributes: ['path', 'name']
+            } as any
+          },
+          {
+            association: Place.associations.kindOfPlace,
+            attributes: ['name']
+          },
+          {
+            association: Place.associations.placeScores,
+            attributes: []
+          }
+        ],
+        group: ['Place.id'],
+        where: {
+          name: { [Op.like]: '%' + query + '%' }
+        }
       })
     ).map(adapaterPlace)
 

@@ -18,7 +18,10 @@ class PlaceController {
   }
 
   getAllPlaces = async (req: Request, res: Response) => {
-    const places = await this.service.getAllPlaces()
+    let places = await this.service.getAllPlaces()
+    if (req.query.q) {
+      places = await this.service.getPlacesByQuery(req.query.q! as string)
+    }
     res.json(places)
   }
 

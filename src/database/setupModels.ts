@@ -7,9 +7,9 @@ import { Place, PlaceAttributes } from './models/Place'
 import { PlaceScore, PlaceScoreAttributes } from './models/PlaceScore'
 import { Role, RoleAttributes } from './models/Role'
 import { User, UserAttributes } from './models/User'
-import places from './Places.json'
-import images from './Images.json'
-import imagesOfPlaces from './ImagesOfPlaces.json'
+// import places from './Places.json'
+// import images from './Images.json'
+// import imagesOfPlaces from './ImagesOfPlaces.json'
 
 function setupModels (sequelize: Sequelize) {
   User.init(UserAttributes, User.config(sequelize))
