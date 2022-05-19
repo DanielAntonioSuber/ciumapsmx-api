@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "name": "Bellas Artes",
+        "description": "El Palacio de Bellas Artes es un recinto cultural ubicado en el Centro Histórico de la Ciudad de México, considerado el más importante en la manifestación de las artes en México y una de las casas de ópera más renombradas del mundo.\r\n\r\nEste ha sido escenario y testigo de impactantes acontecimientos tanto artísticos, como sociales y políticos; su construcción fue iniciada hacia el final del mandato de Porfirio Díaz con motivo de la celebración del centenario del inicio de la Independencia de México; sin embargo, no fue concluido e inaugurado sino hasta el 29 de noviembre de 1934, debido a la Revolución mexicana.\r\n\r\nEs un edificio multifuncional,1​ por lo que alberga diversos escenarios y espacios artísticos como el Museo Palacio de Bellas Artes y el Museo Nacional de Arquitectura. El primero exhibe de forma permanente 17 obras murales de siete artistas nacionales ejecutadas de 1928 a 1963, entre ellos Diego Rivera, David Alfaro Siqueiros y José Clemente Orozco, siendo el más antiguo en el país dedicado a la producción plástica nacional. Así también, es sede de la Orquesta Sinfónica Nacional, la Compañía Nacional de Ópera (Ópera de Bellas Artes), la Compañía Nacional de Danza y del Ballet Folklórico de México de Amalia Hernández. Como institución, depende del Instituto Nacional de Bellas Artes (INBA), parte de la Secretaría de Cultura del gobierno federal. En 1987 fue declarado por la Unesco como monumento patrimonio de la humanidad.",
+        "direction": "Centro Histórico, Ciudad de México",
+        "kind": 1,
+        "createdAt": "2022-05-19T06:47:04.000Z",
+        "updatedAt": "2022-05-19T06:47:04.000Z"
+    },
+    {
+        "id": 2,
+        "name": "Castillo de chapultepec",
+        "description": "El Castillo de Chapultepec es un edificio ubicado en la primera sección del bosque de Chapultepec en la Ciudad de México, a 2325 metros sobre el nivel del mar. Tiene una superficie de 11.8 hectáreas2​3​ y un diseño arquitectónico principalmente barroco y neoclásico.4​\r\n\r\nSu origen se remonta al Virreinato de Nueva España, cuando los virreyes solían frecuentar Chapultepec como zona de descanso y recreación.5​ Bernardo de Gálvez ordenó el inicio de su construcción el 16 de agosto de 1785,6​ en cuyo diseño participaron Francisco Bambitelli y Manuel Agustín Mascaró.7​ No obstante, quedó abandonado durante un par de décadas hasta su adquisición por el Ayuntamiento de México en 1806.8​7​ Hasta entonces, la obra palaciega estaba rodeada de amplios muros de cimentación construidos de andesita.9​ A principios de los años 1840 el Heroico Colegio Militar estableció su sede en el castillo,7​ período durante el cual se construyó el torreón «Caballero Alto».8​ Tuvo un significativo rol durante la batalla de Chapultepec como parte de la intervención estadounidense en México en 1847, al ser «el último bastión de defensa» nacional, durante la cual sufrió daños considerables en su estructura.10​ Miguel Miramón lo utilizó por primera vez como residencia presidencial a finales de los años 1850,7​ hasta la segunda intervención francesa en México.11​ Durante la transición imperial, Maximiliano de Habsburgo y su esposa Carlota habitaron el edificio «cautivados por las hermosas vistas del valle de México que se apreciaban desde el lugar»,12​13​ y llevaron a cabo una serie de adecuaciones inspiradas en el estilo rundbogenstil y neoclásico parisino,9​14​ que le proporcionaron una simetría similar a la de los recintos burgueses europeos de esa época.9​",
+        "direction": "Bosque de Chapultepec I Secc, Miguel",
+        "kind": 1,
+        "createdAt": "2022-05-19T06:50:41.000Z",
+        "updatedAt": "2022-05-19T06:50:41.000Z"
+    },
+    {
+        "id": 3,
+        "name": "Monumento a la revolución",
+        "description": "El Monumento a la Revolución es una obra arquitectónica y un mausoleo dedicado a la conmemoración de la Revolución mexicana. Es obra del arquitecto Carlos Obregón Santacilia, quien tomó la estructura de la Sala de los Pasos Perdidos del malogrado Palacio Legislativo Federal del arquitecto francés Émile Bénard para edificar el monumento, concluido en 1938. Actualmente es uno de los más simbólicos en la Ciudad de México, y forma parte de un conjunto integrado por el propio monumento, la Plaza de la República y el Museo Nacional de la Revolución. Se localiza en la Colonia Tabacalera de la alcaldía Cuauhtémoc, cerca del Centro Histórico de la Ciudad de México.",
+        "direction": "Centro Histórico, Ciudad de México",
+        "kind": 2,
+        "createdAt": "2022-05-19T06:51:54.000Z",
+        "updatedAt": "2022-05-19T06:51:54.000Z"
+    },
+    {
+        "id": 4,
+        "name": "Monumento a la Independencia",
+        "description": "El Monumento a la Independencia o Columna de la Independencia1​ (coloquialmente, El Ángel o El Ángel de la Independencia) es una columna honoraria que se encuentra en la Ciudad de México, en la glorieta localizada en la confluencia de la avenida Paseo de la Reforma y las calles Río Tíber y Florencia.\r\n\r\nLa inauguró en 1910 el entonces presidente de México, Porfirio Díaz, para conmemorar el Centenario del inicio de la guerra de independencia de ese país. En años posteriores se convirtió en un mausoleo para los héroes más importantes de esa guerra. Es uno de los monumentos más emblemáticos de la urbe y usado actualmente como un icono cultural de la Ciudad de México y lugar de festejos y manifestaciones nacionales.2​\r\n\r\nRealizado como una columna honoraria rematada con una estatua de la Victoria Alada sosteniendo una corona de laurel y una cadena rota de tres eslabones, se levanta a su vez sobre un pedestal escalonado completado por diferentes estatuas e inscripciones alegóricas a la independencia de México.[cita requerida]",
+        "direction": "19°25′37″N 99°10′04″O",
+        "kind": 1,
+        "createdAt": "2022-05-19T06:55:58.000Z",
+        "updatedAt": "2022-05-19T06:55:58.000Z"
+    },
+    {
+        "id": 5,
+        "name": "Torre Latinoamericana",
+        "description": "La Torre Latinoamericana es un rascacielos ubicado en la esquina que forman las calles de Madero y el Eje central Lázaro Cárdenas en el Centro Histórico de Ciudad de México. Su ubicación céntrica, su altura (1823​ metros si se incluye la antena, con 44 pisos) y su historia la han convertido en uno de los edificios más emblemáticos de la Ciudad de México.\r\n\r\nFue diseñada por el arquitecto mexicano Augusto H. Álvarez. Superó a la Torre Anáhuac y a la Torre Miguel E Abed en Ciudad de México y al rascacielos Altino Arantes en Brasil. Fue también el edificio más alto de la ciudad desde su construcción en 1956 hasta 1972, año en que se completó el Hotel de México, actualmente el Torre World Trade Center. También obtuvo el récord del rascacielos más alto del mundo fuera de Estados Unidos y por lo tanto de Iberoamérica.\r\n\r\nSe inauguró como el primer y más grande edificio en el mundo con fachada de vidrio y aluminio. Además, la torre fue el primer rascacielos en construirse en una zona de alto riesgo sísmico, por lo cual sirvió de experimento para la cimentación y construcción de futuros edificios en el mundo.",
+        "direction": "19°26′02″N 99°08′26″O",
+        "kind": 1,
+        "createdAt": "2022-05-19T06:58:00.000Z",
+        "updatedAt": "2022-05-19T06:58:00.000Z"
+    },
+    {
+        "id": 6,
+        "name": "Catedral Metropolitana de la Ciudad de México",
+        "description": "La Catedral Metropolitana de la Asunción de la Santísima Virgen María a los cielos de la Ciudad de México (también, Catedral de la Asunción de María de México o Catedral Metropolitana de la Ciudad de México o, coloquialmente, la Catedral) es la sede de la Arquidiócesis Primada de México y se ubica en el lado norte de la Plaza de la Constitución (el Zócalo) en el Centro Histórico de la Ciudad de México, en la demarcación o alcaldía Cuauhtémoc. Al formar parte del mencionado conjunto arquitectónico en esa área de la ciudad, es en consecuencia Patrimonio de la humanidad desde 1987.\r\n\r\nLas medidas aproximadas de este templo son 59 metros de ancho por 128 de largo y una altura de 67 metros hasta la punta de las torres. Es una de las obras más sobresalientes de la arquitectura hispanoamericana.3​4​5​ Fue construida, según los planos del arquitecto español Claudio de Arciniega, quien se inspiró en catedrales españolas,6​ alrededor de una iglesia que fue erigida en el lugar poco después de la conquista española de Tenochtitlán. Las obras comenzaron en 1573, concluyeron en el interior en 1667 y en el exterior hasta 1813.7​",
+        "direction": ".za de la Constitución S/N, Centro Histórico de la Cdad. de México, Centro,",
+        "kind": 1,
+        "createdAt": "2022-05-19T07:00:27.000Z",
+        "updatedAt": "2022-05-19T07:00:27.000Z"
+    },
+    {
+        "id": 7,
+        "name": "Plaza de la Constitución",
+        "description": "La plaza de la Constitución, informalmente conocida como El Zócalo, es la plaza principal de la Ciudad de México. Junto con las calles aledañas, ocupa una superficie casi rectangular de aproximadamente 46 800 m² (195 m x 240 m). Se le denominó así en honor a la Constitución de Cádiz promulgada en 1812. Esta es la segunda plaza más grande del mundo y la primera entre los países de habla hispana.1​\r\n\r\nEl Zócalo está localizado en el corazón de la zona conocida como Centro Histórico de la Ciudad de México, en la demarcación Cuauhtémoc. Su localización fue escogida por los conquistadores españoles para ser establecida justo a un lateral de lo que anteriormente era el centro político y religioso de México-Tenochtitlan, capital de los mexicas.\r\n\r\nEstá rodeado por la Catedral Metropolitana de la Ciudad de México al norte, el Palacio Nacional (sede del Poder Ejecutivo Federal) al este, el Antiguo Palacio del Ayuntamiento y el Edificio de Gobierno (réplica del anterior, ambos del Gobierno de Ciudad de México sede del Poder Ejecutivo local) al sur, y al oeste por edificios comerciales (como el Portal de Mercaderes), administrativos y hoteles. En la esquina noreste de la plaza se encuentran el Museo del Templo Mayor y la plaza Manuel Gamio, así como la estación Zócalo de la Línea 2 del Metro.",
+        "direction": "19°25′58″N 99°08′00″O",
+        "kind": 1,
+        "createdAt": "2022-05-19T07:03:42.000Z",
+        "updatedAt": "2022-05-19T07:03:42.000Z"
+    }
+]

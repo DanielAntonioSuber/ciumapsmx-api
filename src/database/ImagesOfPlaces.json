@@ -1,0 +1,177 @@
+[
+    {
+        "id": 1,
+        "placeId": 1,
+        "imageId": 2
+    },
+    {
+        "id": 2,
+        "placeId": 1,
+        "imageId": 4
+    },
+    {
+        "id": 3,
+        "placeId": 1,
+        "imageId": 5
+    },
+    {
+        "id": 4,
+        "placeId": 1,
+        "imageId": 6
+    },
+    {
+        "id": 5,
+        "placeId": 1,
+        "imageId": 3
+    },
+    {
+        "id": 6,
+        "placeId": 2,
+        "imageId": 7
+    },
+    {
+        "id": 7,
+        "placeId": 2,
+        "imageId": 8
+    },
+    {
+        "id": 8,
+        "placeId": 2,
+        "imageId": 11
+    },
+    {
+        "id": 9,
+        "placeId": 2,
+        "imageId": 10
+    },
+    {
+        "id": 10,
+        "placeId": 2,
+        "imageId": 9
+    },
+    {
+        "id": 11,
+        "placeId": 3,
+        "imageId": 12
+    },
+    {
+        "id": 12,
+        "placeId": 3,
+        "imageId": 14
+    },
+    {
+        "id": 13,
+        "placeId": 3,
+        "imageId": 16
+    },
+    {
+        "id": 14,
+        "placeId": 3,
+        "imageId": 13
+    },
+    {
+        "id": 15,
+        "placeId": 3,
+        "imageId": 15
+    },
+    {
+        "id": 16,
+        "placeId": 4,
+        "imageId": 17
+    },
+    {
+        "id": 17,
+        "placeId": 4,
+        "imageId": 19
+    },
+    {
+        "id": 18,
+        "placeId": 4,
+        "imageId": 20
+    },
+    {
+        "id": 19,
+        "placeId": 4,
+        "imageId": 21
+    },
+    {
+        "id": 20,
+        "placeId": 4,
+        "imageId": 18
+    },
+    {
+        "id": 21,
+        "placeId": 5,
+        "imageId": 22
+    },
+    {
+        "id": 22,
+        "placeId": 5,
+        "imageId": 26
+    },
+    {
+        "id": 23,
+        "placeId": 5,
+        "imageId": 23
+    },
+    {
+        "id": 24,
+        "placeId": 5,
+        "imageId": 24
+    },
+    {
+        "id": 25,
+        "placeId": 5,
+        "imageId": 25
+    },
+    {
+        "id": 26,
+        "placeId": 6,
+        "imageId": 27
+    },
+    {
+        "id": 27,
+        "placeId": 6,
+        "imageId": 29
+    },
+    {
+        "id": 28,
+        "placeId": 6,
+        "imageId": 31
+    },
+    {
+        "id": 29,
+        "placeId": 6,
+        "imageId": 28
+    },
+    {
+        "id": 30,
+        "placeId": 6,
+        "imageId": 30
+    },
+    {
+        "id": 31,
+        "placeId": 7,
+        "imageId": 32
+    },
+    {
+        "id": 32,
+        "placeId": 7,
+        "imageId": 33
+    },
+    {
+        "id": 33,
+        "placeId": 7,
+        "imageId": 35
+    },
+    {
+        "id": 34,
+        "placeId": 7,
+        "imageId": 34
+    },
+    {
+        "id": 35,
+        "placeId": 7,
+        "imageId": 36
+    }
+]
