@@ -65,8 +65,7 @@ const PlaceScoreAttributes: ModelAttributes<
   },
   userId: {
     type: DataTypes.INTEGER.UNSIGNED,
-    allowNull: false,
-    unique: true
+    allowNull: false
   },
   placeId: {
     type: DataTypes.INTEGER.UNSIGNED,
