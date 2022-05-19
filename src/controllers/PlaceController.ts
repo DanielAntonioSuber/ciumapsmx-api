@@ -44,7 +44,7 @@ class PlaceController {
   }
 
   ratePlace = async (req: Request, res: Response) => {
-    const { starsScore, securityScore } = req.body
+    const { starScore, securityScore } = req.body
     const { id } = jwt.verify(
       req.headers.authorization!.split(' ')[1],
       JWT_SECRET
@@ -52,7 +52,41 @@ class PlaceController {
     const placeId = req.params.id
 
     if (placeId) {
-      this.service.ratePlace(placeId, parseInt(id), securityScore, starsScore)
+      const scores = await this.service.ratePlace(
+        parseInt(placeId),
+        parseInt(id),
+        securityScore,
+        starScore
+      )
+
+      res.status(201).json(scores)
+    }
+  }
+
+  updateRatePlace = async (req: Request, res: Response) => {
+    const { id, starScore, securityScore } = req.body
+    const upatedScore = await this.service.updateRatePlace(
+      id,
+      securityScore,
+      starScore
+    )
+    res.status(200).json(upatedScore)
+  }
+
+  getScorePlace = async (req: Request, res: Response) => {
+    const user = jwt.verify(
+      req.headers.authorization!.split(' ')[1],
+      JWT_SECRET
+    ) as { id: string }
+    const placeId = req.params.id
+
+    if (placeId) {
+      const rates = await this.service.getScorePlace(
+        parseInt(user.id),
+        parseInt(placeId)
+      )
+
+      res.json(rates)
     }
   }
 
