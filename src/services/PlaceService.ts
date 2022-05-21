@@ -177,7 +177,7 @@ class PlaceService {
   getPlaceByName = async (name: string) =>
     await Place.findOne({ where: { name: name } })
 
-  commentPlace = async (placeId: string, userId: string, text: string) => {
+  commentPlace = async (placeId: string, userId: number, text: string) => {
     const place = await Place.findByPk(placeId)
     const user = await User.findByPk(userId)
     const comment = await place!.createComment({

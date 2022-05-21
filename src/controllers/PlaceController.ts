@@ -1,7 +1,6 @@
 import { Request, Response, Express } from 'express'
 import PlaceService from '../services/PlaceService'
-import jwt from 'jsonwebtoken'
-import { JWT_SECRET } from '../config/app'
+import { getUserJWT } from '../utils/jwt'
 
 class PlaceController {
   service = new PlaceService()
@@ -19,6 +18,7 @@ class PlaceController {
 
   getAllPlaces = async (req: Request, res: Response) => {
     let places = await this.service.getAllPlaces()
+
     if (req.query.q) {
       places = await this.service.getPlacesByQuery(req.query.q! as string)
     }
@@ -34,10 +34,7 @@ class PlaceController {
 
   commentPlace = async (req: Request, res: Response) => {
     const { text } = req.body
-    const { id } = jwt.verify(
-      req.headers.authorization!.split(' ')[1],
-      JWT_SECRET
-    ) as { id: string }
+    const { id } = getUserJWT(req)
     const placeId = req.params.id
 
     if (placeId) {
@@ -48,16 +45,13 @@ class PlaceController {
 
   ratePlace = async (req: Request, res: Response) => {
     const { starScore, securityScore } = req.body
-    const { id } = jwt.verify(
-      req.headers.authorization!.split(' ')[1],
-      JWT_SECRET
-    ) as { id: string }
+    const user = getUserJWT(req)
     const placeId = req.params.id
 
     if (placeId) {
       const scores = await this.service.ratePlace(
         parseInt(placeId),
-        parseInt(id),
+        user.id,
         securityScore,
         starScore
       )
@@ -77,17 +71,11 @@ class PlaceController {
   }
 
   getScorePlace = async (req: Request, res: Response) => {
-    const user = jwt.verify(
-      req.headers.authorization!.split(' ')[1],
-      JWT_SECRET
-    ) as { id: string }
+    const user = getUserJWT(req)
     const placeId = req.params.id
 
     if (placeId) {
-      const rates = await this.service.getScorePlace(
-        parseInt(user.id),
-        parseInt(placeId)
-      )
+      const rates = await this.service.getScorePlace(user.id, parseInt(placeId))
 
       res.json(rates)
     }
