@@ -3,6 +3,13 @@ import { Role } from '../database/models/Role'
 import { User } from '../database/models/User'
 import ImageService from './ImageService'
 
+type userProps = {
+  username: string
+  email: string
+  password: string
+  role: string
+}
+
 class UserService {
   private roles = [
     { id: 10, name: 'admin' },
@@ -28,17 +35,7 @@ class UserService {
     return this.roles
   }
 
-  create = async ({
-    username,
-    email,
-    password,
-    role
-  }: {
-    username: string
-    email: string
-    password: string
-    role: string
-  }) => {
+  createUser = async ({ username, email, password, role }: userProps) => {
     const imageService = new ImageService()
 
     return await User.create({
@@ -50,26 +47,30 @@ class UserService {
     })
   }
 
-  async findOneById (id: number) {
-    return await User.findByPk(id)
-  }
+  findOneById = async (id: number) => await User.findByPk(id)
 
-  async findOneByEmail (email: string) {
-    return await User.findOne({ where: { email } })
-  }
+  findOneByEmail = async (email: string) =>
+    await User.findOne({ where: { email } })
 
-  async findOneByUsername (username: string) {
-    return await User.findOne({ where: { username } })
-  }
+  findOneByUsername = async (username: string) =>
+    await User.findOne({ where: { username } })
 
-  async findOneByUsernameOrEmail (username: string, email: string) {
-    return await User.findOne({
+  findOneByUsernameOrEmail = async (username: string, email: string) =>
+    await User.findOne({
       where: { [Op.or]: [{ username }, { email }] },
       include: {
         attributes: ['path', 'name'],
         association: User.associations.image
       }
     })
+
+  updateUser = async (
+    userId: number,
+    { email, password, username }: userProps
+  ) => {
+    const user = await User.findByPk(userId)
+    user?.update({ email, password, username })
+    return user
   }
 }
 

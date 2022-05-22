@@ -21,7 +21,7 @@ class AuthController {
   private service = new UserService()
 
   signUp = async (req: Request, res: Response) => {
-    const newUser = await this.service.create(req.body)
+    const newUser = await this.service.createUser(req.body)
     res.status(201).json({
       message: 'Usuario creado',
       token: createToken(newUser)

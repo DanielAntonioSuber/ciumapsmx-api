@@ -7,6 +7,7 @@ import {
   DB_PORT,
   DB_USER
 } from '../config/database'
+import setData from './data/setData'
 import setupModels from './setupModels'
 
 const options: Options = {
@@ -19,5 +20,6 @@ const options: Options = {
 const db = new Sequelize(DB_DATABASE!, DB_USER, DB_PASSWORD, options)
 
 setupModels(db)
+setData()
 
 export default db

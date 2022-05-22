@@ -9,7 +9,7 @@ const validator = new PlaceValidator()
 
 router.post(
   '/',
-  [upload.array('imageOfPlace', 5), ...validator.createPlace],
+  [upload.array('imageOfPlace', 10), ...validator.createPlace],
   controller.createPlace
 )
 router.post('/:id/comments/', controller.commentPlace)

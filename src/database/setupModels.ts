@@ -7,9 +7,6 @@ import { Place, PlaceAttributes } from './models/Place'
 import { PlaceScore, PlaceScoreAttributes } from './models/PlaceScore'
 import { Role, RoleAttributes } from './models/Role'
 import { User, UserAttributes } from './models/User'
-// import places from './Places.json'
-// import images from './Images.json'
-// import imagesOfPlaces from './ImagesOfPlaces.json'
 
 function setupModels (sequelize: Sequelize) {
   User.init(UserAttributes, User.config(sequelize))
@@ -71,18 +68,6 @@ function setupModels (sequelize: Sequelize) {
 
   User.hasMany(Comment, { foreignKey: 'userId', as: 'comments' })
   Comment.belongsTo(User, { foreignKey: 'userId', as: 'user' })
-
-  // images.forEach(({ id, name, path }) => {
-  //   Image.create({ name, path, id })
-  // })
-
-  // places.forEach(({ description, direction, id, kind, name }) => {
-  //   Place.create({ description, direction, name, id, kind })
-  // })
-
-  // imagesOfPlaces.forEach(({ imageId, id, placeId }) => {
-  //   ImageOfPlace.create({ imageId, placeId, id })
-  // })
 }
 
 export default setupModels
