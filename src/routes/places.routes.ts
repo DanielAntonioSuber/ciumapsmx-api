@@ -22,5 +22,8 @@ router.get('/:id/comments/', controller.getCommentsFromPlace)
 router.get('/:id', controller.getPlaceById)
 
 router.put('/scores/', controller.updateRatePlace)
+router.put('/:id', controller.updatePlace)
+
+router.delete('/:id', controller.deletePlaces)
 
 export default router

@@ -6,12 +6,13 @@ class PlaceController {
   service = new PlaceService()
 
   createPlace = async (req: Request, res: Response) => {
+    const user = getUserJWT(req)
     if (req.files) {
       const images = (req.files as Express.Multer.File[]).map((file) => ({
         name: file.fieldname,
         path: 'api ' + file.filename
       }))
-      this.service.createPlace({ ...req.body, images })
+      this.service.createPlace({ ...req.body, images, userId: user.id })
     }
     res.status(201).json({ message: 'El lugar fue creado' })
   }
@@ -20,6 +21,11 @@ class PlaceController {
     let places
     if (req.query.q) {
       places = await this.service.getPlacesByQuery(req.query.q! as string)
+    } else if (req.query.filter) {
+      req.query.filter === 'none' &&
+        (places = await this.service.getAllPlaces({}))
+      req.query.filter === 'unvalidated' &&
+        (places = await this.service.getAllPlaces({ validated: false }))
     } else {
       places = await this.service.getAllPlaces()
     }
@@ -28,7 +34,17 @@ class PlaceController {
 
   getPlaceById = async (req: Request, res: Response) => {
     if (req.params.id) {
-      const place = await this.service.getPlaceById(parseInt(req.params.id))
+      let place
+      if (req.query.filter) {
+        req.query.filter === 'none' &&
+          (place = await this.service.getPlaceById(parseInt(req.params.id), {}))
+        req.query.filter === 'unvalidated' &&
+          (place = await this.service.getPlaceById(parseInt(req.params.id), {
+            validated: false
+          }))
+      } else {
+        place = await this.service.getPlaceById(parseInt(req.params.id))
+      }
       res.status(200).json(place)
     }
   }
@@ -89,6 +105,16 @@ class PlaceController {
   }
 
   getRecommendedPlaces = async (req: Request, res: Response) => {}
+
+  deletePlaces = async (req: Request, res: Response) => {}
+
+  updatePlace = async (req: Request, res: Response) => {
+    const placeId = req.params.id
+    const place = await this.service.updatePlace(placeId, req.body)
+    if (place) return res.json(place)
+
+    res.status(400)
+  }
 }
 
 export default PlaceController

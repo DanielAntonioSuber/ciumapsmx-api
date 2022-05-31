@@ -68,6 +68,11 @@ function setupModels (sequelize: Sequelize) {
 
   User.hasMany(Comment, { foreignKey: 'userId', as: 'comments' })
   Comment.belongsTo(User, { foreignKey: 'userId', as: 'user' })
+
+  User.hasMany(Place, { foreignKey: 'placeId', as: 'places' })
+  Place.belongsTo(User, { foreignKey: 'placeId', as: 'user' })
+
+  sequelize.sync()
 }
 
 export default setupModels

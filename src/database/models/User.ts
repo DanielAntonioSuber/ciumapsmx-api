@@ -28,13 +28,11 @@ import { Role } from './Role'
 import { Image } from './Image'
 import { PlaceScore } from './PlaceScore'
 import { Comment } from './Comment'
+import { Place } from './Place'
 
 const USER_TABLE = 'users'
 
-class User extends Model<
-  InferAttributes<User>,
-  InferCreationAttributes<User>
-> {
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>
   declare roleId: number
   declare username: string
@@ -57,18 +55,12 @@ class User extends Model<
   declare addPlaceScores: HasManyAddAssociationsMixin<PlaceScore, number>
   declare setPlaceScores: HasManySetAssociationsMixin<PlaceScore, number>
   declare removePlaceScore: HasManyRemoveAssociationMixin<PlaceScore, number>
-  declare removePlaceScores: HasManyRemoveAssociationsMixin<
-  PlaceScore,
-    number
-  >
+  declare removePlaceScores: HasManyRemoveAssociationsMixin<PlaceScore, number>
 
   declare hasPlaceScore: HasManyHasAssociationMixin<PlaceScore, number>
   declare hasPlaceScores: HasManyHasAssociationsMixin<PlaceScore, number>
   declare countPlaceScores: HasManyCountAssociationsMixin
-  declare createPlaceScore: HasManyCreateAssociationMixin<
-  PlaceScore,
-    'placeId'
-  >
+  declare createPlaceScore: HasManyCreateAssociationMixin<PlaceScore, 'placeId'>
 
   declare getComments: HasManyGetAssociationsMixin<Comment>
   declare addComment: HasManyAddAssociationMixin<Comment, number>
@@ -81,16 +73,29 @@ class User extends Model<
   declare countComments: HasManyCountAssociationsMixin
   declare createComment: HasManyCreateAssociationMixin<Comment, 'userId'>
 
+  declare getPlaces: HasManyGetAssociationsMixin<Place> // Note the null assertions!
+  declare addPlace: HasManyAddAssociationMixin<Place, number>
+  declare addPlaces: HasManyAddAssociationsMixin<Place, number>
+  declare setPlaces: HasManySetAssociationsMixin<Place, number>
+  declare removePlace: HasManyRemoveAssociationMixin<Place, number>
+  declare removePlaces: HasManyRemoveAssociationsMixin<Place, number>
+  declare hasPlace: HasManyHasAssociationMixin<Place, number>
+  declare hasPlaces: HasManyHasAssociationsMixin<Place, number>
+  declare countPlaces: HasManyCountAssociationsMixin
+  declare createPlace: HasManyCreateAssociationMixin<Place, 'userId'>
+
   declare role?: NonAttribute<Role>
   declare image?: NonAttribute<Image>
   declare PlaceScores?: NonAttribute<PlaceScore>
   declare comments?: NonAttribute<Comment>
+  declare places?: NonAttribute<Place>
 
   declare static associations: {
     role: Association<User, PlaceScore>
     placeScores: Association<User, PlaceScore>
     image: Association<User, Image>
     comments: Association<User, Comment>
+    places: Association<User, Place>
   }
 
   static config (sequelize: Sequelize): InitOptions<User> {

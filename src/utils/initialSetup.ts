@@ -32,6 +32,28 @@ async function createAdmins () {
       username: 'admin2'
     }
   })
+
+  User.findOrCreate({
+    where: { username: 'moderator1' },
+    defaults: {
+      avatarImage: (await imageService.getDefaultAvatar())!.id,
+      email: 'moderator1@email.com',
+      password: 'moderatorpassword',
+      roleId: userService.getRoles().find((e) => e.name === 'moderator')!.id,
+      username: 'moderator1'
+    }
+  })
+
+  User.findOrCreate({
+    where: { username: 'moderator2' },
+    defaults: {
+      avatarImage: (await imageService.getDefaultAvatar())!.id,
+      email: 'moderator2@email.com',
+      password: 'moderatorpassword',
+      roleId: userService.getRoles().find((e) => e.name === 'moderator')!.id,
+      username: 'moderator2'
+    }
+  })
 }
 
 async function createDefaultAvatar () {

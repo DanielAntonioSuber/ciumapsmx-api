@@ -27,6 +27,7 @@ import { Comment } from './Comment'
 import { ImageOfPlace } from './ImageOfPlace'
 import { KindOfPlace } from './KindOfPlace'
 import { PlaceScore } from './PlaceScore'
+import { User } from './User'
 
 const PLACE_TABLE = 'places'
 
@@ -39,6 +40,8 @@ class Place extends Model<
   declare name: string
   declare description: string
   declare direction: string
+  declare validated: CreationOptional<boolean>
+  declare userId: number
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 
@@ -73,18 +76,12 @@ class Place extends Model<
   declare addPlaceScores: HasManyAddAssociationsMixin<PlaceScore, number>
   declare setPlaceScores: HasManySetAssociationsMixin<PlaceScore, number>
   declare removePlaceScore: HasManyRemoveAssociationMixin<PlaceScore, number>
-  declare removePlaceScores: HasManyRemoveAssociationsMixin<
-    PlaceScore,
-    number
-  >
+  declare removePlaceScores: HasManyRemoveAssociationsMixin<PlaceScore, number>
 
   declare hasPlaceScore: HasManyHasAssociationMixin<PlaceScore, number>
   declare hasPlaceScores: HasManyHasAssociationsMixin<PlaceScore, number>
   declare countPlaceScores: HasManyCountAssociationsMixin
-  declare createPlaceScore: HasManyCreateAssociationMixin<
-    PlaceScore,
-    'placeId'
-  >
+  declare createPlaceScore: HasManyCreateAssociationMixin<PlaceScore, 'placeId'>
 
   declare getComments: HasManyGetAssociationsMixin<Comment>
   declare addComment: HasManyAddAssociationMixin<Comment, number>
@@ -97,16 +94,22 @@ class Place extends Model<
   declare countComments: HasManyCountAssociationsMixin
   declare createComment: HasManyCreateAssociationMixin<Comment, 'placeId'>
 
+  declare getUser: BelongsToGetAssociationMixin<User>
+  declare setUser: BelongsToSetAssociationMixin<User, number>
+  declare createUser: BelongsToCreateAssociationMixin<User>
+
   declare imageOfPlaces?: NonAttribute<ImageOfPlace[]>
   declare placeScores?: NonAttribute<PlaceScore[]>
   declare kindOfPlace?: NonAttribute<KindOfPlace>
   declare comments?: NonAttribute<Comment>
+  declare user?: NonAttribute<User>
 
   public declare static associations: {
     imageOfPlaces: Association<Place, ImageOfPlace>
     placeScores: Association<Place, PlaceScore>
     kindOfPlace: Association<Place, KindOfPlace>
     comments: Association<Place, Comment>
+    user: Association<Place, User>
   }
 
   static config (sequelize: Sequelize): InitOptions<Place> {
@@ -129,6 +132,8 @@ const PlaceAttributes: ModelAttributes<Place, InferAttributes<Place>> = {
     unique: true,
     allowNull: false
   },
+  userId: { type: DataTypes.INTEGER.UNSIGNED },
+  validated: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
   description: { type: DataTypes.TEXT },
   direction: { type: DataTypes.STRING(100), allowNull: false },
   kind: { type: DataTypes.INTEGER.UNSIGNED },

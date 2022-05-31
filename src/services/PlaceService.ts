@@ -1,4 +1,4 @@
-import { Op, Sequelize } from 'sequelize'
+import { InferAttributes, Op, Sequelize, WhereOptions } from 'sequelize'
 import { Comment } from '../database/models/Comment'
 import { Image } from '../database/models/Image'
 import { ImageOfPlace } from '../database/models/ImageOfPlace'
@@ -12,8 +12,18 @@ type createPlaceProps = {
   description: string
   direction: string
   kind: string
+  userId: number
   images: { name: string; path: string }[]
 }
+
+type wherePlace = WhereOptions<
+  InferAttributes<
+    Place,
+    {
+      omit: never
+    }
+  >
+>
 
 class PlaceService {
   typesOfPlaces = ['Museum', 'Monument', 'Park', 'Restaurant']
@@ -33,13 +43,15 @@ class PlaceService {
     description,
     direction,
     kind,
-    images
+    images,
+    userId
   }: createPlaceProps) => {
     const kindOfPlace = (await KindOfPlace.findOne({ where: { name: kind } }))!
     const newPlace = await kindOfPlace.createPlace({
       description,
       direction,
-      name
+      name,
+      userId
     })
     images.forEach(async (image) =>
       newPlace.createImageOfPlace({
@@ -49,9 +61,10 @@ class PlaceService {
     return newPlace
   }
 
-  getAllPlaces = async () =>
+  getAllPlaces = async (where: wherePlace = { validated: true }) =>
     (
       await Place.findAll({
+        where: where,
         attributes: [
           'id',
           'name',
@@ -90,7 +103,10 @@ class PlaceService {
       })
     ).map(adapaterPlace)
 
-  getPlacesByQuery = async (query: string) =>
+  getPlacesByQuery = async (
+    query: string,
+    where: wherePlace = { validated: true }
+  ) =>
     (
       await Place.findAll({
         attributes: [
@@ -129,14 +145,16 @@ class PlaceService {
         ],
         group: ['Place.id'],
         where: {
-          name: { [Op.like]: '%' + query + '%' }
+          name: { [Op.like]: '%' + query + '%' },
+          ...where
         }
       })
     ).map(adapaterPlace)
 
-  getPlaceById = async (id: number) =>
+  getPlaceById = async (id: number, where: wherePlace = { validated: true }) =>
     adapaterPlace(
-      await Place.findByPk(id, {
+      await Place.findOne({
+        where: { id, ...where },
         attributes: [
           'id',
           'name',
@@ -259,6 +277,20 @@ class PlaceService {
       where: { userId: userId, placeId: placeId },
       attributes: ['id', 'securityScore', 'starScore']
     })
+  }
+
+  deletePlace = async (placeId: number) => {
+    return await Place.destroy({ where: { id: placeId } })
+  }
+
+  updatePlace = async (
+    placeId: string,
+    placeAttributes: InferAttributes<Place>
+  ) => {
+    const place = await Place.findByPk(placeId)
+    const updatedPlace = await place?.update(placeAttributes)
+    if (updatedPlace) return adapaterPlace(updatedPlace)
+    else return null
   }
 }
 
