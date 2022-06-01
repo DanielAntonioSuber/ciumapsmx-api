@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "question": "1. ¿Cómo puedo eliminar mi cuenta?",
+        "answer": "- Para eliminar una cuenta el usuario tiene que dirigirse al apartado “Mi cuenta”  en donde encontrará la opción de borrar la cuenta."
+    },
+    {
+        "id": 2,
+        "question": "2. ¿Cómo acceder al mapa? ",
+        "answer": "- Para acceder al mapa se encuentra el módulo “Mapa” en la primera pantalla  una vez iniciada sesión, basta con darle clic para acceder."
+    },
+    {
+        "id": 3,
+        "question": "3. ¿Cómo puedo acceder a lugares recomendados?",
+        "answer": "- Para eliminar una cuenta el usuario tiene que dirigirse al apartado “Mi cuenta”  en donde encontrará la opción de borrar la cuenta."
+    },
+    {
+        "id": 4,
+        "question": "4. ¿Cómo puedo cambiar mi contraseña?",
+        "answer": "- Para cambiar la contraseña el usuario tiene que dirigirse al apartado “Mi  cuenta” en donde encontrará la opción de cambiar su contraseña actual a una  nueva."
+    },
+    {
+        "id": 5,
+        "question": "5. ¿Cómo puedo opinar sobre un lugar?",
+        "answer": "- Al seleccionar cualquier lugar recomendado, debajo de él se encuentra una  opción en la que los usuarios pueden hacer comentarios acerca del lugar."
+    },
+    {
+        "id": 6,
+        "question": "6. ¿Cómo puedo saber la dirección de un lugar?",
+        "answer": "- Al seleccionar cualquier lugar recomendado tendrá una ventana modal llamada “Mapa” en la que al dar clic se abrirá un mapa con la localización del respectivo  lugar seleccionado."
+    },
+    {
+        "id": 7,
+        "question": "7. ¿Cómo puedo ver la calificación de un lugar?",
+        "answer": "- Cada lugar tiene un sistema de puntaje en el que se promedian las  calificaciones de otros usuarios, basta con hacer clic en el símbolo de estrella  para saber el puntaje promedio de un lugar."
+    },
+    {
+        "id": 8,
+        "question": "8. ¿Tiene algún costo CiuMapsMx?",
+        "answer": "- No, CiuMapsMx es gratis."
+    },
+    {
+        "id": 9,
+        "question": "9. ¿Cómo se usa el itinerario?",
+        "answer": "- Para usar el itinerario, basta con llenar los campos “día” para marcar el día en  el que se realizara una actividad y el campo en el que se enlistara las  actividades que se tienen planeadas hacer, una vez terminado el día el usuario  puede eliminar esa actividad para que no le aparezca en su lista de actividades."
+    },
+    {
+        "id": 10,
+        "question": "10. ¿Cómo puedo publicar y promocionar mi negocio?",
+        "answer": "- Para publicar un negocio el vendedor tendrá que crear e ingresar desde una  cuenta como vendedor y una vez iniciada la sesión se dirigirá al apartado  “Subir un lugar” en el que llenará una serie de datos adjuntando 5 imágenes y  una vez que todos los campos estén llenos el lugar se podrá subir."
+    }
+]
