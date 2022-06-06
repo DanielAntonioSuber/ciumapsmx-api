@@ -32,7 +32,7 @@ class PlaceController {
     res.json(places)
   }
 
-  getPlaceById = async (req: Request, res: Response) => {
+  getPlaceById = async (req: Request<{id: string}>, res: Response) => {
     if (req.params.id) {
       let place
       if (req.query.filter) {
