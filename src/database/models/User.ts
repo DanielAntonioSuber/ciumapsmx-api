@@ -15,6 +15,9 @@ import {
   HasManyRemoveAssociationMixin,
   HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
+  HasOneCreateAssociationMixin,
+  HasOneGetAssociationMixin,
+  HasOneSetAssociationMixin,
   InferAttributes,
   InferCreationAttributes,
   InitOptions,
@@ -29,6 +32,7 @@ import { Image } from './Image'
 import { PlaceScore } from './PlaceScore'
 import { Comment } from './Comment'
 import { Place } from './Place'
+import { Report } from './Report'
 
 const USER_TABLE = 'users'
 
@@ -45,6 +49,10 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare getRole: BelongsToGetAssociationMixin<Role>
   declare setRole: BelongsToSetAssociationMixin<Role, number>
   declare createRole: BelongsToCreateAssociationMixin<Role>
+
+  declare getReport: HasOneGetAssociationMixin<Report>
+  declare setReport: HasOneSetAssociationMixin<Report, number>
+  declare createReport: HasOneCreateAssociationMixin<Report>
 
   declare getImage: BelongsToGetAssociationMixin<Image>
   declare setImage: BelongsToSetAssociationMixin<Image, number>
@@ -89,6 +97,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare PlaceScores?: NonAttribute<PlaceScore>
   declare comments?: NonAttribute<Comment>
   declare places?: NonAttribute<Place>
+  declare report?: NonAttribute<Report>
 
   declare static associations: {
     role: Association<User, PlaceScore>
@@ -96,6 +105,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     image: Association<User, Image>
     comments: Association<User, Comment>
     places: Association<User, Place>
+    report: Association<User, Report>
   }
 
   static config (sequelize: Sequelize): InitOptions<User> {

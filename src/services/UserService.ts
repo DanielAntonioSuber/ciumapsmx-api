@@ -15,7 +15,10 @@ class UserService {
     { id: 10, name: 'admin' },
     { id: 11, name: 'moderator' },
     { id: 12, name: 'seller' },
-    { id: 13, name: 'tourist' }
+    { id: 13, name: 'tourist' },
+    { id: 14, name: 'supportAdvisor' },
+    { id: 15, name: 'maintenanceEnginner' },
+    { id: 16, name: 'supportEngineer' }
   ]
 
   createRoles = async () => {

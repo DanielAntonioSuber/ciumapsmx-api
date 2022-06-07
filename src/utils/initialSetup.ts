@@ -54,6 +54,38 @@ async function createAdmins () {
       username: 'moderator2'
     }
   })
+
+  // support
+  User.findOrCreate({
+    where: { username: 'ingenieroSoporte' },
+    defaults: {
+      avatarImage: (await imageService.getDefaultAvatar())!.id,
+      email: 'ingenieroSoporte@email.com',
+      password: 'password',
+      roleId: userService.getRoles().find((e) => e.name === 'supportEngineer')!.id,
+      username: 'ingenieroSoporte'
+    }
+  })
+  User.findOrCreate({
+    where: { username: 'ingenieroMantenimiento' },
+    defaults: {
+      avatarImage: (await imageService.getDefaultAvatar())!.id,
+      email: 'ingenieroMantenimiento@email.com',
+      password: 'password',
+      roleId: userService.getRoles().find((e) => e.name === 'maintenanceEnginner')!.id,
+      username: 'ingenieroMantenimiento'
+    }
+  })
+  User.findOrCreate({
+    where: { username: 'asesorSoporte' },
+    defaults: {
+      avatarImage: (await imageService.getDefaultAvatar())!.id,
+      email: 'asesorSoporte@email.com',
+      password: 'password',
+      roleId: userService.getRoles().find((e) => e.name === 'supportAdvisor')!.id,
+      username: 'asesorSoporte'
+    }
+  })
 }
 
 async function createDefaultAvatar () {

@@ -1,11 +1,13 @@
 import { Sequelize } from 'sequelize'
 import { Comment, CommentAttributes } from './models/Comment'
+import { Event, EventAttributes } from './models/Event'
 import { FAQ, FAQAttributes } from './models/FAQ'
 import { Image, ImageAttributes } from './models/Image'
 import { ImageOfPlace, ImageOfPlaceAttributes } from './models/ImageOfPlace'
 import { KindOfPlace, KindOfPlaceAttributes } from './models/KindOfPlace'
 import { Place, PlaceAttributes } from './models/Place'
 import { PlaceScore, PlaceScoreAttributes } from './models/PlaceScore'
+import { Report, ReportAttributes } from './models/Report'
 import { Role, RoleAttributes } from './models/Role'
 import { User, UserAttributes } from './models/User'
 
@@ -19,6 +21,8 @@ function setupModels (sequelize: Sequelize) {
   Place.init(PlaceAttributes, Place.config(sequelize))
   Comment.init(CommentAttributes, Comment.config(sequelize))
   FAQ.init(FAQAttributes, FAQ.config(sequelize))
+  Report.init(ReportAttributes, Report.config(sequelize))
+  Event.init(EventAttributes, Event.config(sequelize))
 
   Role.hasMany(User, {
     foreignKey: 'roleId',
@@ -73,6 +77,12 @@ function setupModels (sequelize: Sequelize) {
 
   User.hasMany(Place, { foreignKey: 'placeId', as: 'places' })
   Place.belongsTo(User, { foreignKey: 'placeId', as: 'user' })
+
+  User.hasOne(Report, { foreignKey: 'userId', as: 'report' })
+  Report.belongsTo(User, { foreignKey: 'userId', as: 'user' })
+
+  Report.hasOne(Event, { foreignKey: 'reportId', as: 'event' })
+  Event.belongsTo(Report, { foreignKey: 'reportId', as: 'report' })
 }
 
 export default setupModels

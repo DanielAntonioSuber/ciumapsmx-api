@@ -10,6 +10,7 @@ import {
   InitOptions,
   Model,
   ModelAttributes,
+  NonAttribute,
   Sequelize
 } from 'sequelize'
 import { Place } from './Place'
@@ -35,6 +36,9 @@ class Comment extends Model<
   declare getUser: BelongsToGetAssociationMixin<User>
   declare setUser: BelongsToSetAssociationMixin<User, number>
   declare createUser: BelongsToCreateAssociationMixin<User>
+
+  declare place: NonAttribute<Place>
+  declare user: NonAttribute<User>
 
   declare static associations: {
     place: Association<Comment, Place>
